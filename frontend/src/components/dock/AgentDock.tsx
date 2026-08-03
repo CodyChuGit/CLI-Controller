@@ -6,7 +6,7 @@ import CommandPalette, { type PaletteAction } from "../CommandPalette";
 import DragHandle from "../DragHandle";
 import TerminalPane from "../TerminalPane";
 import { ProviderMark } from "../conversation/Message";
-import { BeanMark } from "../icons";
+import { MergeMark } from "../icons";
 import { useDockData } from "../../hooks/useDockData";
 import { loadState, saveState } from "../../persist";
 import AgentDockComposer from "./AgentDockComposer";
@@ -217,7 +217,7 @@ export default function AgentDock({
           aria-label="Open controller chat"
           className="focusable relative cursor-pointer rounded-lg p-2 text-neutral-500 transition-colors duration-150 hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
         >
-          <BeanMark className="h-[18px] w-[18px]" />
+          <MergeMark className="h-[18px] w-[18px]" />
           {(hasUnread(ORCH) || data?.pending) && (
             <span
               className={`absolute right-0 top-0 h-1.5 w-1.5 rounded-full border border-white bg-accent dark:border-neutral-900 ${data?.pending ? "animate-pulse" : ""}`}

@@ -13,11 +13,11 @@ const SHELL = [
   "/",
   "/index.html",
   "/manifest.webmanifest",
-  "/icons/bean.svg",
-  "/icons/bean-192.png",
-  "/icons/bean-512.png",
-  "/icons/bean-maskable-192.png",
-  "/icons/bean-maskable-512.png",
+  "/icons/merge.svg",
+  "/icons/merge-192.png",
+  "/icons/merge-512.png",
+  "/icons/merge-maskable-192.png",
+  "/icons/merge-maskable-512.png",
 ];
 
 self.addEventListener("install", (event) => {

@@ -2,7 +2,7 @@ import { LiveRunActivity } from "../../components/LiveActivityFeed";
 import { StepChip } from "../../components/Markdown";
 import StatusBadge from "../../components/StatusBadge";
 import { ProviderMark } from "../../components/conversation/Message";
-import { BeanMark, Spinner, Terminal } from "../../components/icons";
+import { MergeMark, Spinner, Terminal } from "../../components/icons";
 import { QUEUE_ACTIVE, STEP_ORDER, taskCommandRuns } from "./taskPageModel";
 import type { Approval, QueueState, TaskDetail } from "../../types";
 
@@ -94,7 +94,7 @@ export default function TaskDispatchMap({
           >
             <div className="flex items-center gap-1.5 border-b border-neutral-100 pb-1.5 dark:border-neutral-800/60">
               {lane.id === "controller" ? (
-                <BeanMark className="h-3.5 w-3.5 shrink-0 text-accent-subtle" />
+                <MergeMark className="h-3.5 w-3.5 shrink-0 text-accent-subtle" />
               ) : lane.id === "local" ? (
                 <Terminal className="h-3.5 w-3.5 shrink-0 text-neutral-400" />
               ) : (

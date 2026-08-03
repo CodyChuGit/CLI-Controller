@@ -1,10 +1,10 @@
 import { ProviderMark } from "../conversation/Message";
-import { BeanMark, ChevronRight, Close, Command, Terminal } from "../icons";
+import { MergeMark, ChevronRight, Close, Command, Terminal } from "../icons";
 
 /** One dock tab's display state, prepared by AgentDock. */
 export interface DockTab {
   id: string;
-  /** true for the controller tab (bean mark + medium label). */
+  /** true for the controller tab (merge mark + medium label). */
   controller: boolean;
   installed: boolean;
   /** a reply is in flight on this channel. */
@@ -73,7 +73,7 @@ export default function AgentDockTabs({
               {tab.controller ? (
                 // White (near-black in light mode), not accent blue — the
                 // controller mark reads as its own thing next to the brand logos.
-                <BeanMark className="h-4 w-4 text-neutral-800 dark:text-white" />
+                <MergeMark className="h-4 w-4 text-neutral-800 dark:text-white" />
               ) : (
                 <span
                   className={`${tab.pending ? "animate-pulse" : ""} ${tab.installed ? "" : "opacity-40"}`}

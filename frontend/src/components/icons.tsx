@@ -151,12 +151,12 @@ export const AntigravityMark = (p: SVGProps<SVGSVGElement>) => (
   </BrandIcon>
 );
 
-/** Smooth bean mark for compact controller/channel UI. */
-export const BeanMark = ({ className = "h-4 w-4", ...rest }: SVGProps<SVGSVGElement>) => (
+/** Git-merge mark for compact controller/channel UI. */
+export const MergeMark = ({ className = "h-4 w-4", ...rest }: SVGProps<SVGSVGElement>) => (
   <svg
-    // Tight viewBox around the glyph (not the original 512 canvas) so the bean
+    // Tight viewBox around the glyph (not the original 512 canvas) so the mark
     // renders at the same visual size as the provider brand marks beside it.
-    viewBox="76 76 360 360"
+    viewBox="82 86 348 348"
     fill="none"
     stroke="currentColor"
     strokeLinecap="round"
@@ -165,11 +165,12 @@ export const BeanMark = ({ className = "h-4 w-4", ...rest }: SVGProps<SVGSVGElem
     className={`block shrink-0 overflow-visible ${className}`}
     {...rest}
   >
-    <path
-      strokeWidth="41.307053"
-      d="M 119.139801 338.127747 C 88.703026 281.602295 109.356552 230.511993 159.359833 206.597382 C 205.014984 184.856842 213.711212 135.940582 269.149628 117.461121 C 334.371307 95.720551 391.983765 138.114655 403.941071 201.162262 C 421.333496 287.037445 362.634003 370.738586 276.75882 394.653198 C 207.189041 414.219696 150.663605 390.305084 119.139801 338.127747"
-    />
-    <path strokeWidth="33.697861" d="M 292 173 C 320.181824 180.457642 342 200.966095 352 228" />
+    <g strokeWidth="40">
+      <path d="M 140 414 L 140 332 Q 140 306 162 292 L 256 220" />
+      <path d="M 372 414 L 372 332 Q 372 306 350 292 L 256 220" />
+      <path d="M 256 220 L 256 106" />
+      <path d="M 204 158 L 256 106 L 308 158" />
+    </g>
   </svg>
 );
 
