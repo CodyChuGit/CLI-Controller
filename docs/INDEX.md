@@ -45,3 +45,4 @@ agents. This index only lists current reference docs for the working app.
 | [../CONTRIBUTING.md](../CONTRIBUTING.md) | Contributor setup and PR checklist. |
 | [../CHANGELOG.md](../CHANGELOG.md) | Notable project changes. |
 | [PILLARS.md](PILLARS.md) | Current product guarantees encoded by tests. |
+| [archive/](archive/README.md) | Superseded June 2026 design notes, audit reports, and plans. Historical only. |
