@@ -11,7 +11,7 @@ from .types import ContextPackage, PromptPackage, PromptSection
 
 SECTION_ORDER: tuple[str, ...] = (
     "system_instructions",
-    "clitc_rules",
+    "clic_rules",
     "behavior_policy",
     "project_rules",
     "session_digest",
@@ -27,8 +27,8 @@ _SYSTEM_INSTRUCTIONS = (
     "Ground every answer in the context sections below; do not invent files or state."
 )
 
-_CLITC_RULES = (
-    "CLITC rules: stay inside the workspace, never read or write .env files, "
+_CLIC_RULES = (
+    "CLIC rules: stay inside the workspace, never read or write .env files, "
     "never print secrets, and prefer the smallest correct change."
 )
 
@@ -68,7 +68,7 @@ def build_prompt_package(package: ContextPackage) -> PromptPackage:
     content) so the order is observable and testable end to end."""
     content: dict[str, str] = {
         "system_instructions": _SYSTEM_INSTRUCTIONS,
-        "clitc_rules": _CLITC_RULES,
+        "clic_rules": _CLIC_RULES,
         "behavior_policy": package.policy.block,
         "project_rules": package.projectRules,
         "session_digest": package.digest.text,

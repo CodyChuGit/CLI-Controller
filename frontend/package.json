@@ -1,8 +1,8 @@
 {
-  "name": "clit-controller-ide-frontend",
+  "name": "cli-controller-ide-frontend",
   "private": true,
   "version": "0.1.0",
-  "description": "Vibe with CLIT Controller",
+  "description": "Vibe with CLI Controller",
   "type": "module",
   "scripts": {
     "dev": "vite",

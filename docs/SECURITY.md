@@ -1,6 +1,6 @@
 # Security
 
-CLIT Controller IDE is a local single-user tool that runs CLI agents and shell
+CLI Controller IDE is a local single-user tool that runs CLI agents and shell
 commands on the user's machine. The security model is containment and explicit
 control, not sandboxing untrusted providers.
 
@@ -37,7 +37,7 @@ Untrusted:
 
 ## Provider Credentials
 
-Provider CLIs own their own authentication. CLIT Controller does not read, store,
+Provider CLIs own their own authentication. CLI Controller does not read, store,
 or manage provider API keys, passwords, browser sessions, or tokens.
 
 ## Command Policy
@@ -56,7 +56,7 @@ Hard-denied command shapes do not run even after approval.
 
 ## Controller Actions
 
-Controller mutations are validated through `CLITC_RESULT_V1` before execution.
+Controller mutations are validated through `CLIC_RESULT_V1` before execution.
 Invalid result blocks create failure events and mutate no state. Legacy
 `agentflow-*` directives are compatibility fallback only and still flow through
 the same policy and approval gates.

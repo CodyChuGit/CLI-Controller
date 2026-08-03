@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Generate a thin macOS app wrapper: dist/CLIT Controller IDE.app whose only job
+# Generate a thin macOS app wrapper: dist/CLI Controller IDE.app whose only job
 # is to run scripts/app-mode.sh (which owns all real logic). This is convenience
 # packaging only — NOT a native desktop app: no Electron, Tauri, notarization,
 # updater, or separate app state. See docs/pwa-chrome-app-mode.md.
@@ -11,7 +11,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-APP_NAME="CLIT Controller IDE"
+APP_NAME="CLI Controller IDE"
 DEST_DIR="${1:-$REPO/dist}"
 APP="$DEST_DIR/$APP_NAME.app"
 
@@ -26,7 +26,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 <dict>
   <key>CFBundleName</key><string>$APP_NAME</string>
   <key>CFBundleDisplayName</key><string>$APP_NAME</string>
-  <key>CFBundleIdentifier</key><string>com.clitcontroller.appmode</string>
+  <key>CFBundleIdentifier</key><string>com.clicontroller.appmode</string>
   <key>CFBundleVersion</key><string>1.0</string>
   <key>CFBundleShortVersionString</key><string>1.0</string>
   <key>CFBundlePackageType</key><string>APPL</string>
@@ -64,4 +64,4 @@ fi
 touch "$APP"  # nudge Finder/Launchpad to pick up the bundle + icon
 echo ""
 echo "✓ Built: $APP"
-echo "  Double-click it (or move to /Applications) to launch CLITC in app mode."
+echo "  Double-click it (or move to /Applications) to launch CLIC in app mode."

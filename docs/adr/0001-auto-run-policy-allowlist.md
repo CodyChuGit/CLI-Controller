@@ -20,7 +20,7 @@ Use a three-way policy:
 - `deny`: known bypasses, shell-control shapes, privileged commands, path
   traversal, and commands outside the workspace.
 
-This policy applies to structured `CLITC_RESULT_V1` command actions and legacy
+This policy applies to structured `CLIC_RESULT_V1` command actions and legacy
 directive fallback actions.
 
 ## Rationale

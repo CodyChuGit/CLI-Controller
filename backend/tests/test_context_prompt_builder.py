@@ -36,7 +36,7 @@ def test_section_order_is_locked():
     # This test MUST fail if the section order ever changes.
     assert prompt_builder.SECTION_ORDER == (
         "system_instructions",
-        "clitc_rules",
+        "clic_rules",
         "behavior_policy",
         "project_rules",
         "session_digest",

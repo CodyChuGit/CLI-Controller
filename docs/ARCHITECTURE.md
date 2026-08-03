@@ -1,6 +1,6 @@
 # Architecture
 
-CLIT Controller IDE is a single-user local app:
+CLI Controller IDE is a single-user local app:
 
 - FastAPI backend in `backend/agentflow`
 - React/Vite frontend in `frontend/src`
@@ -59,7 +59,7 @@ Key services:
 | `controller/engine.py` | Parses finished controller output and applies the controller decision. |
 | `controller/actions.py` | Executes validated `ControllerAction` values through task, queue, policy, approval, and runner services. |
 | `controller/context.py` | Workspace and focused-task prompt context builders. |
-| `controller_protocol.py` | `CLITC_RESULT_V1` schema and parser. |
+| `controller_protocol.py` | `CLIC_RESULT_V1` schema and parser. |
 | `process_runner.py` | Subprocess lifecycle, stdout/stderr capture, cancellation, redacted logs, live event deltas. |
 | `event_bus.py` | In-process event ring buffer for SSE/polling live stream. |
 | `state_store.py` | Durable events, runs, approvals, and restart recovery. |
@@ -78,13 +78,13 @@ InputSubmission or /chat/send
   -> chat_service starts the controller CLI
   -> process_runner streams controller.delta events
   -> controller output completes
-  -> controller_protocol parses CLITC_RESULT_V1
+  -> controller_protocol parses CLIC_RESULT_V1
   -> controller.engine applies result
   -> controller.actions mutates task/queue/approval/run state
   -> state_store and event_bus publish durable/live events
 ```
 
-Invalid `CLITC_RESULT_V1` blocks produce `controller.result_invalid` and do not
+Invalid `CLIC_RESULT_V1` blocks produce `controller.result_invalid` and do not
 mutate state. If no result block exists, legacy directives are mapped onto the
 same closed action union as a compatibility fallback and emit
 `controller.legacy_directives`.

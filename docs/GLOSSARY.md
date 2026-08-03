@@ -1,6 +1,6 @@
 # Glossary
 
-Project-specific terms for CLIT Controller IDE.
+Project-specific terms for CLI Controller IDE.
 
 ## Agent Dock
 
@@ -24,7 +24,7 @@ A durable request to authorize a risky action. Approvals live in
 `<workspace>/.agentflow/approvals.json` and can be approved or rejected from the
 UI.
 
-## CLITC_RESULT_V1
+## CLIC_RESULT_V1
 
 The deterministic controller result protocol. A valid result block executes one
 validated action. Invalid blocks mutate no state.
@@ -48,7 +48,7 @@ default and fail-open.
 ## Legacy Directives
 
 Older `agentflow-*` fenced blocks. They are still parsed as compatibility
-fallback when no `CLITC_RESULT_V1` block is present.
+fallback when no `CLIC_RESULT_V1` block is present.
 
 ## Live Run
 

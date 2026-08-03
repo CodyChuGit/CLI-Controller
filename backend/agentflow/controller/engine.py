@@ -2,7 +2,7 @@
 
 Priority order (never inverted):
 
-1. A valid CLITC_RESULT_V1 block — the primary protocol — drives exactly one
+1. A valid CLIC_RESULT_V1 block — the primary protocol — drives exactly one
    validated action through ``actions.execute``.
 2. A present-but-invalid block is a typed failure: a ``controller.result_invalid``
    event is emitted, the user is told, and NO state mutates (no legacy downgrade).
@@ -34,7 +34,7 @@ from . import actions
 def _legacy_actions(out: str) -> list[ControllerAction]:
     """Legacy agentflow-* / fenced-JSON directives mapped onto the closed action
     union, so the fallback runs through the same executor as the v1 protocol.
-    Only reachable when no CLITC_RESULT_V1 block exists (parsers are v1-first)."""
+    Only reachable when no CLIC_RESULT_V1 block exists (parsers are v1-first)."""
     acts: list[ControllerAction] = []
     task = chat_directives.parse_task_directive(out)
     if task is not None:
@@ -89,14 +89,14 @@ async def apply_controller_output(
                 f"controller returned an invalid result — {failure.summary}",
                 provider=provider,
             )
-        turn = {"resultSource": "clitc_result_v1", "status": "invalid", "actionType": None}
+        turn = {"resultSource": "clic_result_v1", "status": "invalid", "actionType": None}
     elif result is not None:
         if meta.blocks > 1:
             # Model misbehaviour signal: the last valid block won, but say so durably.
             state_store.append_event(
                 workspace,
                 "controller.result_misbehaviour",
-                f"{meta.blocks} CLITC_RESULT_V1 blocks in one reply — used the last valid one",
+                f"{meta.blocks} CLIC_RESULT_V1 blocks in one reply — used the last valid one",
                 task_id=task_id,
                 provider=provider,
                 data=base,
@@ -113,7 +113,7 @@ async def apply_controller_output(
                 provider=provider,
             )
         turn = {
-            "resultSource": "clitc_result_v1",
+            "resultSource": "clic_result_v1",
             "status": "actioned" if outcome["ok"] else "failed",
             "actionType": result.action.type,
         }
@@ -124,7 +124,7 @@ async def apply_controller_output(
                 workspace,
                 "controller.legacy_directives",
                 f"legacy agentflow directives honored ({', '.join(a.type for a in legacy)}) — "
-                "the controller should emit CLITC_RESULT_V1",
+                "the controller should emit CLIC_RESULT_V1",
                 task_id=task_id,
                 provider=provider,
                 data=base,

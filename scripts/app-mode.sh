@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Launch CLIT Controller IDE (Command Line Interface Traffic Controller) in an
+# Launch CLI Controller IDE (Command Line Interface Traffic Controller) in an
 # app-like Chrome window. Starts the local FastAPI backend if it is not already
 # healthy, waits for health, then opens Chrome in --app mode. No Electron/Tauri,
 # no native packaging. See docs/pwa-chrome-app-mode.md.
@@ -18,11 +18,11 @@ cd "$REPO"
 PORT="${AGENTFLOW_PORT:-8787}"
 URL="http://localhost:${PORT}"
 HEALTH="${URL}/api/health"
-RUNTIME_DIR="${CLITC_RUNTIME_DIR:-/tmp/clitc-controller}"
+RUNTIME_DIR="${CLIC_RUNTIME_DIR:-/tmp/clic-controller}"
 LOG="${RUNTIME_DIR}/backend.log"
 PIDFILE="${RUNTIME_DIR}/backend.pid"
-CHROME_APP="${CLITC_CHROME_APP:-Google Chrome}"
-HEALTH_TIMEOUT="${CLITC_HEALTH_TIMEOUT:-30}"
+CHROME_APP="${CLIC_CHROME_APP:-Google Chrome}"
+HEALTH_TIMEOUT="${CLIC_HEALTH_TIMEOUT:-30}"
 
 mkdir -p "$RUNTIME_DIR"
 
@@ -32,10 +32,10 @@ open_app() {
   # Prefer an app-mode Chrome window; if Chrome is absent the user can still open
   # the normal URL — Chrome is not required.
   if [ -d "/Applications/${CHROME_APP}.app" ] || [ -d "${HOME}/Applications/${CHROME_APP}.app" ]; then
-    echo "Opening CLIT Controller IDE in app mode → $URL"
+    echo "Opening CLI Controller IDE in app mode → $URL"
     open -na "$CHROME_APP" --args --app="$URL"
   else
-    echo "Google Chrome not found — open CLIT Controller IDE manually at: $URL"
+    echo "Google Chrome not found — open CLI Controller IDE manually at: $URL"
   fi
 }
 

@@ -1,4 +1,4 @@
-"""Deterministic controller protocol — CLITC_RESULT_V1 (I/O rebuild, Plane 3).
+"""Deterministic controller protocol — CLIC_RESULT_V1 (I/O rebuild, Plane 3).
 
 Separates the controller's live human-readable NARRATIVE (prose, streamed normally)
 from exactly ONE authoritative, validated control RESULT. The controller (an
@@ -7,11 +7,11 @@ sentinel-framed JSON block:
 
     ...human-readable reasoning streams here...
 
-    <<<CLITC_RESULT_V1
+    <<<CLIC_RESULT_V1
     {"schemaVersion":"1","kind":"controller_result",
      "message":{"summary":"Ready to implement.","details":["spec exists"]},
      "action":{"type":"queue_steps","taskId":"task-123","steps":["claude_implement"]}}
-    CLITC_RESULT_V1>>>
+    CLIC_RESULT_V1>>>
 
 Parsing rules (mission Phase 2):
 - Prose-tolerant: surrounding narrative is ignored.
@@ -41,8 +41,8 @@ from pydantic import BaseModel, Field, ValidationError
 from .contracts import FailureRecord
 
 PROTOCOL_VERSION = "1"
-OPEN = "<<<CLITC_RESULT_V1"
-CLOSE = "CLITC_RESULT_V1>>>"
+OPEN = "<<<CLIC_RESULT_V1"
+CLOSE = "CLIC_RESULT_V1>>>"
 MAX_RESULT_BYTES = 16_384
 
 # Capture ANY content between the sentinels; JSON/schema validation rejects bad
@@ -155,7 +155,7 @@ class ControllerResult(BaseModel):
 
 class ParseMeta(BaseModel):
     source: Literal["v1", "none"] = "none"
-    blocks: int = 0  # number of CLITC_RESULT_V1 blocks seen (>1 is a misbehaviour signal)
+    blocks: int = 0  # number of CLIC_RESULT_V1 blocks seen (>1 is a misbehaviour signal)
 
 
 def result_contract_prompt() -> str:
@@ -185,7 +185,7 @@ def result_contract_prompt() -> str:
 
 
 def strip_result_block(text: str) -> str:
-    """Remove every CLITC_RESULT_V1 block so the result JSON never renders as prose."""
+    """Remove every CLIC_RESULT_V1 block so the result JSON never renders as prose."""
     return _BLOCK_RE.sub("", text or "")
 
 
@@ -193,7 +193,7 @@ def parse_controller_result(text: str) -> tuple[Optional[ControllerResult], Opti
     """Extract + validate the single authoritative controller result from ``text``.
 
     Returns ``(result, failure, meta)``:
-    - ``(result, None, meta)`` when a valid CLITC_RESULT_V1 block is present.
+    - ``(result, None, meta)`` when a valid CLIC_RESULT_V1 block is present.
     - ``(None, None, meta(source="none"))`` when NO block is present (caller may try
       the legacy fallback).
     - ``(None, failure, meta)`` when a block is present but oversized / malformed /
@@ -216,7 +216,7 @@ def parse_controller_result(text: str) -> tuple[Optional[ControllerResult], Opti
     except ValueError:
         return (
             None,
-            FailureRecord(title="Malformed controller result", summary="The CLITC_RESULT_V1 block is not valid JSON."),
+            FailureRecord(title="Malformed controller result", summary="The CLIC_RESULT_V1 block is not valid JSON."),
             meta,
         )
     if not isinstance(data, dict):

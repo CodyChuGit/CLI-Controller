@@ -1,6 +1,6 @@
 # Data Model
 
-CLIT Controller uses JSON files, markdown artifacts, and run logs. There is no
+CLI Controller uses JSON files, markdown artifacts, and run logs. There is no
 database.
 
 ## Global State

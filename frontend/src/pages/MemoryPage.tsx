@@ -14,7 +14,7 @@ interface Status {
 const errMsg = (e: unknown) => (e instanceof ApiError ? e.message : String(e));
 
 // The Memory tab renders codebase-memory-mcp's own galaxy (its three.js
-// GraphScene component, vendored) natively inside CLITC — fed by the backend
+// GraphScene component, vendored) natively inside CLIC — fed by the backend
 // layout proxy, scoped to the current workspace. No iframe, no viewer chrome.
 export default function MemoryPage() {
   const [status, setStatus] = useState<Status | null>(null);

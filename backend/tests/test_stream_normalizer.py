@@ -24,20 +24,20 @@ def assistant(*blocks: dict) -> str:
 def test_tool_use_becomes_marker_and_result_becomes_tail():
     n = ClaudeStreamJsonNormalizer()
     out = n.feed(
-        assistant({"type": "tool_use", "name": "Bash", "input": {"command": "echo hello-clitc"}})
+        assistant({"type": "tool_use", "name": "Bash", "input": {"command": "echo hello-clic"}})
         + line(
             {
                 "type": "user",
                 "message": {
                     "role": "user",
-                    "content": [{"type": "tool_result", "content": "hello-clitc", "is_error": False}],
+                    "content": [{"type": "tool_result", "content": "hello-clic", "is_error": False}],
                 },
             }
         )
         + assistant({"type": "text", "text": "done"})
     )
-    assert "⏺ Bash(echo hello-clitc)" in out
-    assert "⎿ hello-clitc" in out
+    assert "⏺ Bash(echo hello-clic)" in out
+    assert "⎿ hello-clic" in out
     assert out.rstrip().endswith("done")
 
 
@@ -110,7 +110,7 @@ def test_normalizer_only_engages_for_claude_stream_json():
 
 def test_runner_normalizes_claude_stdout_end_to_end(tmp_path):
     """The pipe: RUNNER.start attaches the normalizer for claude+stream-json argv,
-    so record.stdout (what chat bubbles / CLITC parse / logs consume) is clean text."""
+    so record.stdout (what chat bubbles / CLIC parse / logs consume) is clean text."""
     import asyncio
 
     from agentflow.process_runner import RUNNER

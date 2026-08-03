@@ -10,7 +10,7 @@ Unreleased.
 - Right-hand Agent Dock with controller transcript, provider PTY tabs, terminal
   drawer, activity cards, approvals, composer, status footer, and live run
   output.
-- Structured controller action engine based on `CLITC_RESULT_V1`.
+- Structured controller action engine based on `CLIC_RESULT_V1`.
 - Controller action support for answer, create task, queue steps, run command,
   request approval, request user, retry, reroute, complete task, and cancel.
 - Provider-lane Tasks dispatch map for Controller, Codex, Claude, Antigravity,
@@ -42,7 +42,7 @@ Unreleased.
   spread-first fallback when Claude is conserved.
 - Default controller routing is now `claude`; QA defaults to `antigravity`.
 - Legacy `agentflow-*` directives are compatibility fallback only when no
-  `CLITC_RESULT_V1` block is present.
+  `CLIC_RESULT_V1` block is present.
 - Headroom is enabled by default and fail-open for `claude` and `codex`.
 - Documentation has been rebuilt around the current working app and obsolete
   planning/audit markdown has been removed.

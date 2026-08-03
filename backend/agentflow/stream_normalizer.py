@@ -3,7 +3,7 @@
 Claude Code in headless ``-p`` mode buffers everything until exit — the dock
 shows nothing while it works. With ``--output-format stream-json --verbose`` it
 streams JSONL events instead, but raw JSONL is unreadable and would poison every
-downstream consumer (chat bubbles, CLITC_RESULT_V1 parsing, task exchanges,
+downstream consumer (chat bubbles, CLIC_RESULT_V1 parsing, task exchanges,
 logs), which all read ``record.stdout`` as text.
 
 So the normalizer sits at the single point where stdout chunks are read

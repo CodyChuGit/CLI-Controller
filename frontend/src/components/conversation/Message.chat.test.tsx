@@ -4,13 +4,13 @@ import { describe, expect, it } from "vitest";
 import { Message } from "./Message";
 
 /* UI tests for the shared chat-box renderer (the controller dock and the provider
-   direct chats both render through Message). The deterministic CLITC_RESULT_V1
+   direct chats both render through Message). The deterministic CLIC_RESULT_V1
    block must never leak into a bubble — including historical messages stored raw
    before the backend started cleaning them. */
 
 const BLOCK =
-  '<<<CLITC_RESULT_V1\n{"schemaVersion":"1","kind":"controller_result",' +
-  '"message":{"summary":"done","details":[]},"action":{"type":"answer"}}\nCLITC_RESULT_V1>>>';
+  '<<<CLIC_RESULT_V1\n{"schemaVersion":"1","kind":"controller_result",' +
+  '"message":{"summary":"done","details":[]},"action":{"type":"answer"}}\nCLIC_RESULT_V1>>>';
 
 describe("controller chat box", () => {
   it("renders the controller's prose and strips the result block", () => {
@@ -25,7 +25,7 @@ describe("controller chat box", () => {
       />,
     );
     expect(container.textContent).toContain("I'll set up a security audit.");
-    expect(container.textContent).not.toContain("CLITC_RESULT_V1");
+    expect(container.textContent).not.toContain("CLIC_RESULT_V1");
     expect(container.textContent).not.toContain("schemaVersion");
   });
 
@@ -33,7 +33,7 @@ describe("controller chat box", () => {
     const { container } = render(
       <Message msg={{ role: "assistant", provider: "antigravity", content: BLOCK, time: "t" }} />,
     );
-    expect(container.textContent).not.toContain("CLITC_RESULT_V1");
+    expect(container.textContent).not.toContain("CLIC_RESULT_V1");
     expect(container.textContent).not.toContain("controller_result");
   });
 });

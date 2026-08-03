@@ -58,7 +58,7 @@ PROVIDERS: list[dict] = [
         "versionCommand": "codex --version",
         "statusCommand": None,
         # Best-effort curated list (codex has no public models subcommand) — Custom covers the rest.
-        "modelOptions": ["gpt-5.5-codex", "gpt-5.5", "gpt-5.1-codex", "gpt-5.1-codex-mini"],
+        "modelOptions": ["gpt-5.6-sol", "gpt-5.6-terra", "gpt-5.6-luna", "gpt-5.5", "gpt-5.4", "gpt-5.4-mini"],
     },
     {
         # Successor to the sunset Gemini CLI. Official installer puts the `agy`
@@ -78,12 +78,15 @@ PROVIDERS: list[dict] = [
         # Refreshed from `agy models` on every Check; this is the fallback.
         "modelsCommand": "{exe} models",
         "modelOptions": [
-            "Gemini 3.5 Flash (Medium)",
-            "Gemini 3.5 Flash (High)",
-            "Gemini 3.1 Pro (High)",
-            "Claude Sonnet 4.6 (Thinking)",
-            "Claude Opus 4.6 (Thinking)",
-            "GPT-OSS 120B (Medium)",
+            "gemini-3.6-flash-high",
+            "gemini-3.6-flash-medium",
+            "gemini-3.6-flash-low",
+            "gemini-3.5-flash-high",
+            "gemini-3.5-flash-medium",
+            "gemini-3.1-pro-high",
+            "claude-sonnet-4-6",
+            "claude-opus-4-6-thinking",
+            "gpt-oss-120b-medium",
         ],
     },
     {
@@ -100,12 +103,13 @@ PROVIDERS: list[dict] = [
         "versionCommand": "claude --version",
         "statusCommand": None,
         "modelOptions": [
-            "sonnet",
+            "fable",
             "opus",
+            "sonnet",
             "haiku",
             "claude-fable-5",
-            "claude-opus-4-8",
-            "claude-sonnet-4-6",
+            "claude-opus-5",
+            "claude-sonnet-5",
             "claude-haiku-4-5",
         ],
     },

@@ -1,4 +1,4 @@
-"""CLITC_RESULT_V1 is the PRIMARY controller protocol in the parse_* path.
+"""CLIC_RESULT_V1 is the PRIMARY controller protocol in the parse_* path.
 
 Proves the rebuild's keystone wiring: chat_directives reads the deterministic
 protocol first; a valid v1 block drives the action; an invalid or non-matching v1

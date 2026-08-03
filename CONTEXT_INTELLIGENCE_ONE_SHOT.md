@@ -1,8 +1,8 @@
 # ONE-SHOT // AgentComposer Native Context Intelligence System (v2)
 
-You are running inside the `AgentComposer` / CLIT Controller IDE repo.
+You are running inside the `AgentComposer` / CLI Controller IDE repo.
 
-Implement the first working version of CLITC's Native Context Intelligence
+Implement the first working version of CLIC's Native Context Intelligence
 System. This is an implementation task, not a planning-only task.
 
 This file is the single authoritative brief. If you find any other document in
@@ -15,7 +15,7 @@ Preserve the existing architecture:
 
 - Backend package: `backend/agentflow` (FastAPI app: `backend/agentflow/app.py`)
 - Frontend: `frontend/src` (React + Vite + Tailwind)
-- Controller protocol: `CLITC_RESULT_V1` in `controller_protocol.py`, executed by
+- Controller protocol: `CLIC_RESULT_V1` in `controller_protocol.py`, executed by
   `backend/agentflow/controller/engine.py` + `actions.py`
 - Live stream: `process_runner.py` -> `event_bus.py` -> `frontend/src/stream.tsx`
 - PTY terminals: `terminal_service.py` + `frontend/src/components/TerminalPane.tsx`
@@ -32,7 +32,7 @@ execution.
 **Phase 1 is preview/benchmark only. Do NOT modify `chat_service.py`,
 `prompt_templates.py`, or any live prompt path.** The pipeline ships as a
 standalone typed system with its own API routes; wiring it into live controller
-turns is a later phase. "Existing CLITC behavior still works" is an acceptance
+turns is a later phase. "Existing CLIC behavior still works" is an acceptance
 criterion — the safest way to satisfy it is to not touch the live paths at all.
 
 ## Goal
@@ -198,7 +198,7 @@ never crash the pipeline. Record which counter was used in `TokenUsage`.
 Build prompt sections in this exact stable order:
 
 1. stable system instructions
-2. stable CLITC rules
+2. stable CLIC rules
 3. stable Ponytail behavior policy
 4. project rules
 5. session digest
@@ -323,6 +323,6 @@ Done means:
   untouched)
 - no new dependencies were added
 - `make verify` passes
-- existing CLITC behavior still works
+- existing CLIC behavior still works
 
 Begin by inspecting the repo, then implement the smallest complete version.

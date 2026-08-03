@@ -1,4 +1,4 @@
-# CLIT Controller IDE — one memorable command surface.
+# CLI Controller IDE — one memorable command surface.
 # Backend uses the project venv at .venv; frontend uses npm in ./frontend.
 # See docs/OPERATIONS.md for the full runtime model.
 

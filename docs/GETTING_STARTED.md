@@ -16,8 +16,8 @@ The app has no database. Runtime state is JSON on disk under `~/.agentflow/` and
 ## Install
 
 ```bash
-git clone https://github.com/CodyChuGit/CLIT-Controller.git
-cd CLIT-Controller
+git clone https://github.com/CodyChuGit/CLI-Controller.git
+cd CLI-Controller
 ./scripts/install.sh
 ```
 

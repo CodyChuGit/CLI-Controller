@@ -42,7 +42,7 @@ def _pkey(workspace: Path, channel: str) -> str:
 def _controller_display(out: str) -> str:
     """The human-readable narrative stored for the controller's chat bubble.
 
-    The controller's raw stdout ends with a deterministic ``CLITC_RESULT_V1`` block
+    The controller's raw stdout ends with a deterministic ``CLIC_RESULT_V1`` block
     (Plane 3) that must never render as prose. Strip every action block (the v1
     result + legacy directives); when the controller emitted ONLY a result block and
     no surrounding prose, fall back to the block's own ``message`` so the turn still
@@ -357,12 +357,12 @@ async def send(
             )
             out = record.stdout.strip()
             if record.status == "succeeded" and out:
-                # Store the display-clean narrative — the raw CLITC_RESULT_V1 / legacy
+                # Store the display-clean narrative — the raw CLIC_RESULT_V1 / legacy
                 # blocks are parsed below but must never render as prose in the bubble.
                 display = _controller_display(out)
                 if display:
                     append_message(workspace, "assistant", display, provider=provider, durationMs=record.duration_ms)
-                # CLITC_RESULT_V1 is the primary mutation path (Workstream 2): a valid
+                # CLIC_RESULT_V1 is the primary mutation path (Workstream 2): a valid
                 # block drives exactly one validated action; an invalid block is a
                 # typed no-action failure; legacy directives are a warned fallback.
                 try:
@@ -591,7 +591,7 @@ async def orchestrator_consult(workspace: Path, task_id: str, trigger: str, outp
                 )
                 return
 
-            # Same engine as controller chat: CLITC_RESULT_V1 first, typed failure
+            # Same engine as controller chat: CLIC_RESULT_V1 first, typed failure
             # on an invalid block (no mutation), warned legacy fallback otherwise.
             turn = await controller_engine.apply_controller_output(
                 workspace,

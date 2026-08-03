@@ -140,7 +140,7 @@ export default function ActivityBar({ page, onNavigate }: Props) {
         aria-hidden="true"
         draggable={false}
         className="mb-2 h-8 w-8 rounded-lg shadow-sm"
-        title="Command Line Interface Terminal Controller (CLIT Controller IDE)"
+        title="Command Line Interface Controller (CLI Controller IDE)"
       />
       {MAIN_NAV.map((item) => (
         <RailButton

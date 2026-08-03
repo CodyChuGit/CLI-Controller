@@ -4,7 +4,7 @@
 
 **Goal:** Rebase AgentComposer's agent decisions onto the `Agent_CLI_Skill` orchestration core (engine stages + spread-first fallback), and add a codebase-memory 3D graph tab and an opensrc source tool + browse tab.
 
-**Architecture:** A new `backend/agentflow/orchestrator/` adapter imports the pure-stdlib engine (`route_task`/`dispatch`/`usage_lib`/`monitor_lib`) in `cli_only` mode and feeds decisions to the existing `process_runner`/queue/CLITC body. Two new backend services shell out to the `codebase-memory-mcp` and `opensrc` binaries; two new React pages render their data, themed with ui-ux-pro-max.
+**Architecture:** A new `backend/agentflow/orchestrator/` adapter imports the pure-stdlib engine (`route_task`/`dispatch`/`usage_lib`/`monitor_lib`) in `cli_only` mode and feeds decisions to the existing `process_runner`/queue/CLIC body. Two new backend services shell out to the `codebase-memory-mcp` and `opensrc` binaries; two new React pages render their data, themed with ui-ux-pro-max.
 
 **Tech Stack:** Python 3.11 / FastAPI (backend), React + Vite + Tailwind (frontend), pure-stdlib engine, `react-force-graph-3d` (new FE dep), external binaries `codebase-memory-mcp` + `opensrc`.
 
@@ -197,7 +197,7 @@
 
 **Interfaces:** `OpensrcAction = {type:"opensrc", pkg:str, path?:str}` in the `ControllerAction` union.
 
-- [ ] **Step 1 — failing test:** a `clitc_result_v1` block with an `opensrc` action, parsed + executed, fetches source and appends a snippet to the transcript; `policy_service` classifies `opensrc path zod` as allowed.
+- [ ] **Step 1 — failing test:** a `clic_result_v1` block with an `opensrc` action, parsed + executed, fetches source and appends a snippet to the transcript; `policy_service` classifies `opensrc path zod` as allowed.
 - [ ] **Step 2 — run, expect fail.** **Step 3 — implement** (both agent paths: controller action + CLI capability line). **Step 4 — green + commit** (`feat(opensrc): controller tool + agent capability`).
 
 ### Task C4: SourcesPage + ActivityBar

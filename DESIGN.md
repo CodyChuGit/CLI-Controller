@@ -1,4 +1,4 @@
-# CLIT Controller IDE Design Language
+# CLI Controller IDE Design Language
 
 The app should feel like a compact IDE surface: dense, quiet, rectangular, and
 built for repeated work.
@@ -17,10 +17,10 @@ built for repeated work.
 
 ## Naming
 
-- Product: CLIT Controller IDE.
-- Full descriptive name: Command Line Interface Terminal Controller.
-- Tagline: Vibe with CLIT Controller.
-- Short names after first mention: CLIT Controller or CLITC.
+- Product: CLI Controller IDE.
+- Full descriptive name: Command Line Interface Controller.
+- Tagline: Vibe with CLI Controller.
+- Short names after first mention: CLI Controller or CLIC.
 
 ## Layout
 

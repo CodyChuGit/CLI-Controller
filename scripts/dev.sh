@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Command Line Interface Terminal Controller — run backend (:8787) and frontend dev server (:5180).
+# Command Line Interface Controller — run backend (:8787) and frontend dev server (:5180).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -32,9 +32,9 @@ free_port "$BACKEND_PORT"
 free_port "$FRONTEND_PORT"
 
 echo ""
-echo "  Command Line Interface Terminal Controller"
-echo "  CLIT Controller IDE"
-echo "  Vibe with CLIT Controller"
+echo "  Command Line Interface Controller"
+echo "  CLI Controller IDE"
+echo "  Vibe with CLI Controller"
 echo "  Backend  → http://localhost:8787   (API + built frontend, if present)"
 echo "  Frontend → http://localhost:5180   (dev server, hot reload)"
 echo ""

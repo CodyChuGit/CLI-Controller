@@ -1,6 +1,6 @@
 # Operations
 
-CLIT Controller IDE is intended to run locally. It binds to localhost, executes
+CLI Controller IDE is intended to run locally. It binds to localhost, executes
 user-owned CLI tools, and stores state on disk.
 
 ## Development Run
@@ -87,7 +87,7 @@ pip install "headroom-ai[all]"
 
 ## Provider CLIs
 
-CLIT Controller does not install provider CLIs automatically at startup. Use the
+CLI Controller does not install provider CLIs automatically at startup. Use the
 Agents page to check, install, or launch login helpers.
 
 Provider auth remains with each official CLI.

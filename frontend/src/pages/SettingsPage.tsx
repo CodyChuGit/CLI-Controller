@@ -133,8 +133,8 @@ export default function SettingsPage() {
               )}
             </div>
             <p className="text-xs text-neutral-500">
-              Crushes bulky machine context (logs, task state, step output) inside the prompts CLITC
-              builds for its own agents — a library call in the backend, no proxy, and only CLITC's
+              Crushes bulky machine context (logs, task state, step output) inside the prompts CLIC
+              builds for its own agents — a library call in the backend, no proxy, and only CLIC's
               runs are affected. Instructions are never rewritten.
               {!headroom.installed && (
                 <>
@@ -230,7 +230,7 @@ export default function SettingsPage() {
       </Card>
 
       <p className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-xs text-emerald-800 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-300">
-        CLIT Controller uses official CLI auth and does not store provider secrets.
+        CLI Controller uses official CLI auth and does not store provider secrets.
       </p>
     </PageShell>
   );

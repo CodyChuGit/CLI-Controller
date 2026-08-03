@@ -14,7 +14,7 @@ Three changes to AgentComposer (a.k.a. AgentFlow Studio), delivered together:
    `Agent_CLI_Skill` project (`/Users/cody/Agent_CLI_Skill/agent-orchestrator`). The engine
    becomes the decision brain for *who runs a unit of work, on what model, with what fallback*,
    and its multi-agent **stage pipelines** replace the app's fixed 4-step task flow. The proven
-   execution body (subprocess spawning, PTY terminals, CLITC controller) is kept.
+   execution body (subprocess spawning, PTY terminals, CLIC controller) is kept.
 2. **Integrate `codebase-memory-mcp`** (a C binary that indexes a repo into a SQLite knowledge
    graph) and add a **native 3D "Graph Visualization" tab**, styled with AgentComposer's own
    design system (ui-ux-pro-max) rather than iframing the binary's stock UI.
@@ -44,7 +44,7 @@ files (from codebase survey):
     enforces `AGENT_RUN_TIMEOUT`, heartbeats.
   - `backend/agentflow/terminal_service.py` — PTY sessions.
   - `backend/agentflow/controller_protocol.py` + `controller/engine.py` + `controller/actions.py` —
-    the `CLITC_RESULT_V1` action protocol (`queue_steps`, `run_command`, `complete_task`, …).
+    the `CLIC_RESULT_V1` action protocol (`queue_steps`, `run_command`, `complete_task`, …).
   - `backend/agentflow/queue_service.py` — durable queue + `dispatcher_loop()`.
   - `backend/agentflow/usage_service.py` — per-provider health (green/yellow/red), cost.
   - `backend/agentflow/provider_probe.py` — CLI detection/version/install/login.
@@ -102,7 +102,7 @@ provider ids; **oMLX has no chat provider** (monitor role only).
 - `make verify` (ruff + mypy + pytest + vitest) stays green; new code is tested at its boundaries.
 
 **Non-goals**
-- Rewriting `process_runner`, PTY terminals, SSE, or the CLITC protocol wire format.
+- Rewriting `process_runner`, PTY terminals, SSE, or the CLIC protocol wire format.
 - Re-testing the engine core (it ships its own `--self-check` suite); we test only the adapter
   boundary.
 - Using `codebase-memory-mcp`'s stock 3D UI or MCP-stdio transport (we use CLI mode).
@@ -116,7 +116,7 @@ provider ids; **oMLX has no chat provider** (monitor role only).
 ```
 ┌───────────────────────── AgentComposer (existing body — KEPT) ──────────────────────────┐
 │ React/Vite/Tailwind UI ─ FastAPI ─ chat_service · task_service · queue_service           │
-│ process_runner (spawns CLIs) · PTY terminals · CLITC controller · usage · policy         │
+│ process_runner (spawns CLIs) · PTY terminals · CLIC controller · usage · policy         │
 └──────▲────────────────────────────▲────────────────────────────▲────────────────────────┘
        │ WHO/model/fallback          │ graph data                  │ source fetch + tool
 ┌──────┴─────────────────────┐ ┌─────┴──────────────────┐ ┌────────┴───────────────────┐
