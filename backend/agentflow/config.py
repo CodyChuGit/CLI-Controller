@@ -184,6 +184,11 @@ def ensure_workspace(workspace: Path) -> dict:
             "routing": dict(load_global_config()["routing"]),
         }
         write_json(cfg_file, cfg)
+    elif not cfg.get("workspacePath"):
+        # A config written before workspacePath existed (or hand-edited) would
+        # otherwise 500 every caller that reads cfg["workspacePath"]. Heal it.
+        cfg["workspacePath"] = str(workspace)
+        write_json(cfg_file, cfg)
 
     # usage.json is created by usage_service on first access; do it here too so
     # selecting a workspace immediately materializes all expected files.

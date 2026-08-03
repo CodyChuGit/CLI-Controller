@@ -19,17 +19,18 @@ commit. No API keys, no cloud, no eight terminal tabs.
 ## Ask once. It plans the work and cues the agents.
 
 Describe what you want in plain language. The controller decides which steps are
-needed, which CLI is best for each one, and queues them — you approve, you don't
+needed, which CLI is best at each one, and queues them — you approve, you don't
 micromanage.
 
 <p align="center">
-  <img src="docs/assets/controller-chat.png" alt="Controller chat turning a one-line request into a planned, queued task" width="620">
+  <img src="docs/assets/controller-chat.png" alt="Controller chat turning one sentence into a planned, queued, completed task" width="700">
 </p>
 
-One sentence in ("create .md files for next steps in a future features doc") and
-you get a plan back: which step, which agent, what it will touch — then the task
-is created and queued. Every provider has its own tab in the same dock, plus a
-real terminal if you'd rather drive it yourself.
+Seven words in — *add stripe checkout to the pricing page* — and you get a plan
+back: spec to Codex, implementation to Claude, QA to Antigravity, final review
+to Codex. Then it runs, and each agent reports in as it finishes. Every provider
+also has its own tab in that dock, plus a real terminal if you'd rather drive it
+yourself.
 
 ## Watch the whole task, agent by agent.
 
@@ -37,10 +38,12 @@ real terminal if you'd rather drive it yourself.
   <img src="docs/assets/tasks.png" alt="Tasks workbench showing Codex, Claude, and Antigravity lanes on one task" width="900">
 </p>
 
-One dark-mode feature, **three steps across three CLIs**: Codex wrote the spec
-and the implementation plan, Claude wrote the code, Antigravity ran QA — and
-each one's output, artifacts, and exact prompt are one click away. A
-step that fails doesn't lose the task: it sits in the queue with **Retry** and
+The same task, opened up: **four steps across three CLIs**, four files changed,
+and every step's artifacts, reply, and exact prompt one click away. Codex's spec
+flagged that Stripe retries webhooks, so the plan made idempotency an acceptance
+criterion — and Antigravity's QA checked exactly that before the review passed.
+
+A step that fails doesn't lose the task: it sits in the queue with **Retry** and
 **Skip**, and you can tell the controller what to do next without starting over.
 
 **What that saves you:** you stop copy-pasting context between three terminals,
@@ -62,6 +65,9 @@ of stopping.
 On top of that, two token-saving layers run by default: **Headroom** compresses
 bulky machine context inside prompts before they're sent, and **Ponytail** keeps
 agent output to the smallest thing that works.
+
+<sub>Screenshots show the real UI against a sample project. Provider health and
+quota are live readings from the CLIs.</sub>
 
 ---
 

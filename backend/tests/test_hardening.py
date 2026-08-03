@@ -33,3 +33,20 @@ def test_git_file_diff_shows_normal_untracked_file(tmp_path):
     (tmp_path / "notes.txt").write_text("hello world\n")
     res = asyncio.run(git_service.file_diff(tmp_path, "notes.txt", staged=False))
     assert "hello world" in res["diff"]
+
+
+def test_ensure_workspace_backfills_missing_workspace_path(tmp_path):
+    # A config.json written before workspacePath existed (or hand-edited) must be
+    # healed, not returned as-is — set_workspace reads cfg["workspacePath"] and
+    # would otherwise raise KeyError and 500 the workspace switch.
+    from agentflow import config, paths
+
+    config.ensure_workspace(tmp_path)
+    cfg_file = paths.workspace_config_file(tmp_path)
+    config.write_json(cfg_file, {"routing": {"engineer": "claude"}})  # no workspacePath
+
+    cfg = config.ensure_workspace(tmp_path)
+
+    assert cfg["workspacePath"] == str(tmp_path.resolve())
+    assert config.read_json(cfg_file, {})["workspacePath"] == str(tmp_path.resolve())
+    assert cfg["routing"] == {"engineer": "claude"}  # untouched
