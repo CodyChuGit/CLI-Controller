@@ -15,7 +15,7 @@ For product behavior, read [PRODUCT_OVERVIEW.md](PRODUCT_OVERVIEW.md) and
 
 ## Current Product Shape
 
-CLIT Controller IDE is a local UI for CLI coding agents. It runs user-installed
+CLI Controller IDE is a local UI for CLI coding agents. It runs user-installed
 provider CLIs as subprocesses, streams managed output through a shared event
 store, and exposes interactive provider PTYs through Agent Dock.
 
@@ -33,7 +33,7 @@ Antigravity-controller configs are migrated forward.
 
 ## Do Not Break These
 
-- Controller mutations go through `CLITC_RESULT_V1`.
+- Controller mutations go through `CLIC_RESULT_V1`.
 - Invalid controller result blocks mutate no state.
 - Legacy `agentflow-*` directives are compatibility fallback only.
 - Live managed output flows through `event_bus.py` and `stream.tsx`.

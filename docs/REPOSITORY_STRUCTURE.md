@@ -1,13 +1,13 @@
 # Repository Structure
 
-This is the current source map for CLIT Controller IDE / AgentComposer.
+This is the current source map for CLI Controller IDE / AgentComposer.
 
 ```text
 AgentComposer/
 ├── backend/
 │   ├── agentflow/
 │   │   ├── api/                 # FastAPI HTTP, SSE, and WebSocket routes
-│   │   ├── controller/          # CLITC_RESULT_V1 action engine
+│   │   ├── controller/          # CLIC_RESULT_V1 action engine
 │   │   └── *.py                 # services, state, runner, terminals, config
 │   └── tests/                   # pytest suite
 ├── frontend/
@@ -30,7 +30,7 @@ AgentComposer/
 └── CHANGELOG.md
 ```
 
-The Python package is still named `agentflow`; the product name is CLIT
+The Python package is still named `agentflow`; the product name is CLI
 Controller IDE.
 
 ## Backend

@@ -1,4 +1,4 @@
-"""Run Command Line Interface Terminal Controller: python -m agentflow"""
+"""Run Command Line Interface Controller: python -m agentflow"""
 
 from __future__ import annotations
 
@@ -12,9 +12,9 @@ PORT = int(os.environ.get("AGENTFLOW_PORT", "8787"))
 
 def main() -> None:
     print()
-    print("  Command Line Interface Terminal Controller")
-    print("  CLIT Controller IDE")
-    print("  Vibe with CLIT Controller")
+    print("  Command Line Interface Controller")
+    print("  CLI Controller IDE")
+    print("  Vibe with CLI Controller")
     print(f"  → http://localhost:{PORT}")
     print("  API docs → http://localhost:%d/docs" % PORT)
     print()

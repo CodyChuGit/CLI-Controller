@@ -9,7 +9,7 @@ export interface PaletteAction {
   run: () => void;
 }
 
-/** A VS Code-style command palette scoped to CLITC-native actions only — no
+/** A VS Code-style command palette scoped to CLIC-native actions only — no
  *  vscode:// links, no extension commands. Filterable list over a dim backdrop;
  *  Enter runs the top match, Esc closes. */
 export default function CommandPalette({
@@ -81,7 +81,7 @@ export default function CommandPalette({
               run(matches[active]);
             }
           }}
-          placeholder="Run a CLITC action…"
+          placeholder="Run a CLIC action…"
           aria-label="Command palette filter"
           className="w-full border-b border-neutral-200 bg-white px-3 py-2.5 text-sm text-neutral-900 outline-none placeholder:text-neutral-400 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100"
         />

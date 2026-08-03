@@ -102,8 +102,8 @@ async def _lifespan(app: FastAPI):
 
 def create_app() -> FastAPI:
     app = FastAPI(
-        title="Command Line Interface Terminal Controller",
-        description="Vibe with CLIT Controller",
+        title="Command Line Interface Controller",
+        description="Vibe with CLI Controller",
         version=__version__,
         lifespan=_lifespan,
     )
@@ -136,9 +136,9 @@ def create_app() -> FastAPI:
     def health() -> dict:
         return {
             "ok": True,
-            "app": "CLIT Controller IDE",
-            "fullName": "Command Line Interface Terminal Controller",
-            "tagline": "Vibe with CLIT Controller",
+            "app": "CLI Controller IDE",
+            "fullName": "Command Line Interface Controller",
+            "tagline": "Vibe with CLI Controller",
             "version": __version__,
         }
 

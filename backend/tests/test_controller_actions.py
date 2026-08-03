@@ -1,4 +1,4 @@
-"""CLITC_RESULT_V1 action execution — the controller engine's mutation path.
+"""CLIC_RESULT_V1 action execution — the controller engine's mutation path.
 
 Covers the revamp's Workstream 2 acceptance criteria: a valid result block
 mutates state through the action executor (chat and consult sources), an invalid
@@ -54,7 +54,7 @@ def event_types(ws: Path) -> list[str]:
 def test_create_task_action_creates_and_queues(tmp_path):
     ws = make_workspace(tmp_path)
     turn = apply(ws, v1('{"type":"create_task","title":"Add login","goal":"implement login"}'))
-    assert turn == {"resultSource": "clitc_result_v1", "status": "actioned", "actionType": "create_task"}
+    assert turn == {"resultSource": "clic_result_v1", "status": "actioned", "actionType": "create_task"}
     tasks = task_service.list_tasks(ws)
     assert len(tasks) == 1 and tasks[0]["title"] == "Add login"
     items = queue_service.load_queue(ws)["items"]
@@ -181,7 +181,7 @@ def test_invalid_result_emits_typed_failure_and_mutates_nothing(tmp_path):
         "```agentflow-task\ntitle: Sneaky\ngoal: should not run\n```\n"
     )
     turn = apply(ws, out)
-    assert turn == {"resultSource": "clitc_result_v1", "status": "invalid", "actionType": None}
+    assert turn == {"resultSource": "clic_result_v1", "status": "invalid", "actionType": None}
     assert task_service.list_tasks(ws) == []  # the legacy block was NOT honored
     assert queue_service.load_queue(ws)["items"] == []
     types = event_types(ws)
@@ -231,7 +231,7 @@ def test_turn_completed_record_carries_typed_fields(tmp_path):
     assert len(turn_events) == 1
     data = turn_events[0]["data"]
     assert data["source"] == "controller_chat"
-    assert data["resultSource"] == "clitc_result_v1"
+    assert data["resultSource"] == "clic_result_v1"
     assert data["actionType"] == "answer"
     assert data["status"] == "actioned"
     assert data["runId"] == "run_x"
@@ -239,7 +239,7 @@ def test_turn_completed_record_carries_typed_fields(tmp_path):
 
 def test_chat_send_executes_v1_action_end_to_end(tmp_path, monkeypatch):
     """The live path: a real controller CLI run (stubbed with a script that emits
-    prose + a CLITC_RESULT_V1 block) whose completion queues steps via the engine."""
+    prose + a CLIC_RESULT_V1 block) whose completion queues steps via the engine."""
     import time
 
     ws = make_workspace(tmp_path)
@@ -252,7 +252,7 @@ def test_chat_send_executes_v1_action_end_to_end(tmp_path, monkeypatch):
         '"action":{"type":"queue_steps","taskId":"latest","steps":["claude_implement"]}}'
     )
     script.write_text(
-        "#!/bin/sh\nprintf 'Narrative first.\\n\\n<<<CLITC_RESULT_V1\\n%s\\nCLITC_RESULT_V1>>>\\n' " + f"'{body}'\n"
+        "#!/bin/sh\nprintf 'Narrative first.\\n\\n<<<CLIC_RESULT_V1\\n%s\\nCLIC_RESULT_V1>>>\\n' " + f"'{body}'\n"
     )
     script.chmod(0o755)
 
@@ -277,5 +277,5 @@ def test_chat_send_executes_v1_action_end_to_end(tmp_path, monkeypatch):
     msgs = chat_service.load_chat(ws)["messages"]
     assistant = [m for m in msgs if m["role"] == "assistant"]
     assert assistant and "Narrative first." in assistant[0]["content"]
-    assert "CLITC_RESULT_V1" not in assistant[0]["content"]
+    assert "CLIC_RESULT_V1" not in assistant[0]["content"]
     assert "controller.turn_completed" in event_types(ws)

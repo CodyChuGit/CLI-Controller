@@ -12,7 +12,7 @@ workspace mirror in `<workspace>/.agentflow/config.json`.
 | `HEADROOM_SAVINGS_PROFILE` | `agent-90` | Used by helper scripts; managed app settings are preferred. |
 
 The backend strips `PORT` and `AGENTFLOW_PORT` from child process env so preview
-servers do not bind over the CLIT Controller backend.
+servers do not bind over the CLI Controller backend.
 
 ## Routing Defaults
 
@@ -67,7 +67,7 @@ Default settings:
 }
 ```
 
-When enabled, CLIT Controller compresses bulky machine context (step output
+When enabled, CLI Controller compresses bulky machine context (step output
 tails, task-state summaries) in-process while it assembles agent prompts.
 Context blocks shorter than `minChars` are left alone; instructions are never
 rewritten. Failures of any kind fall back to the original text.

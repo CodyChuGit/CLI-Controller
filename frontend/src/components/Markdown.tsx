@@ -4,7 +4,7 @@ import ArtifactChip from "./ArtifactChip";
 
 /* Shared compact-markdown renderer. Agent replies (chat bubbles AND task step
    outputs) are markdown prose: headings, bullets, numbered lists, tables,
-   **bold**, `code`, fenced code blocks, and CLITC directive blocks. This
+   **bold**, `code`, fenced code blocks, and CLIC directive blocks. This
    renders them readably instead of as a raw monospace dump, and replaces
    pipeline step ids with colored chips. One renderer, used on every surface. */
 
@@ -280,7 +280,7 @@ const DIRECTIVE_STYLE: Record<string, { label: string; cls: string }> = {
   },
 };
 
-/** CLITC directive blocks render as colored action cards instead of raw code. */
+/** CLIC directive blocks render as colored action cards instead of raw code. */
 function DirectiveCard({ lang, code }: { lang: string; code: string }) {
   const style = DIRECTIVE_STYLE[lang] ?? DIRECTIVE_STYLE["agentflow-queue"];
   const fields: Record<string, string> = {};

@@ -50,7 +50,7 @@ chat_service.send / orchestrator_consult
   -> controller.actions.execute(...)
 ```
 
-`CLITC_RESULT_V1` is primary. A valid block drives one validated action. An
+`CLIC_RESULT_V1` is primary. A valid block drives one validated action. An
 invalid block creates a typed failure event and mutates nothing. If no block is
 present, legacy `agentflow-*` directive blocks are mapped to the same action
 union as a compatibility fallback and logged as `controller.legacy_directives`.

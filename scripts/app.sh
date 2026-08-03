@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Launch CLIT Controller as a standalone Chrome "app" window — its own window,
+# Launch CLI Controller as a standalone Chrome "app" window — its own window,
 # no tabs/address bar, separate from your everyday browsing.
 #
 # Single-port mode: the backend on :8787 serves both the API and the built
@@ -10,7 +10,7 @@
 #   APP_URL=http://localhost:8787 ./scripts/app.sh   # override the URL
 #
 # For a real Dock/Launchpad icon, run ./scripts/make-app.sh once to build a
-# "CLIT Controller.app" bundle that calls this script.
+# "CLI Controller.app" bundle that calls this script.
 #
 # Quit the app window with Cmd+Q (also stops the backend started here).
 set -euo pipefail
@@ -19,7 +19,7 @@ cd "$(dirname "$0")/.."
 URL="${APP_URL:-http://localhost:8787}"
 # Dedicated profile so the app window is its own Chrome instance, not a tab in
 # your normal browser.
-PROFILE="${APP_CHROME_PROFILE:-$HOME/.clitcontroller-chrome}"
+PROFILE="${APP_CHROME_PROFILE:-$HOME/.clicontroller-chrome}"
 CHROME="${CHROME_BIN:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 
 if [ ! -x .venv/bin/python ]; then
@@ -56,7 +56,7 @@ until curl -sf -o /dev/null "$URL"; do
   sleep 0.3
 done
 
-echo "==> Opening CLIT Controller → $URL"
+echo "==> Opening CLI Controller → $URL"
 # Run Chrome in the foreground: with its own profile it stays the lead process
 # until the app window is quit (Cmd+Q), at which point the trap stops the
 # backend. Ctrl+C in the terminal does the same.

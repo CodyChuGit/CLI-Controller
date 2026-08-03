@@ -114,7 +114,7 @@ export default function StatusBar({
           {connection === "polling" ? "polling" : "stream off"}
         </Item>
       )}
-      <Item>CLIT Controller IDE 0.1 beta</Item>
+      <Item>CLI Controller IDE 0.1 beta</Item>
     </footer>
   );
 }

@@ -313,7 +313,7 @@ class ProcessRunner:
             if captured <= MAX_CAPTURE_CHARS:
                 parts.append(text)
             elif not record.truncated:
-                parts.append("\n[output truncated by CLITC]\n")
+                parts.append("\n[output truncated by CLIC]\n")
                 record.truncated = True
             if streaming:
                 carry += text
@@ -356,7 +356,7 @@ class ProcessRunner:
             path = Path(record.log_file)  # type: ignore[arg-type]
             path.parent.mkdir(parents=True, exist_ok=True)
             body = (
-                f"# Command Line Interface Terminal Controller run {record.id}\n"
+                f"# Command Line Interface Controller run {record.id}\n"
                 f"# command: {record.command_preview()}\n"
                 f"# cwd: {record.cwd}\n"
                 f"# task: {record.task_id or '-'}  step: {record.step or '-'}  provider: {record.provider or '-'}\n"
@@ -431,7 +431,7 @@ class ProcessRunner:
             normalizer=normalizer_for(provider, argv),
         )
         # Children must not inherit OUR port assignment: dev servers honor PORT and
-        # would bind on top of the CLITC backend, hijacking localhost:8787.
+        # would bind on top of the CLIC backend, hijacking localhost:8787.
         child_env = {k: v for k, v in os.environ.items() if k not in ("PORT", "AGENTFLOW_PORT")}
         if extra_env:
             child_env.update(extra_env)

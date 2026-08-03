@@ -1,7 +1,7 @@
 {
-  "name": "CLIT Controller IDE",
-  "short_name": "CLITC",
-  "description": "Vibe with CLIT Controller",
+  "name": "CLI Controller IDE",
+  "short_name": "CLIC",
+  "description": "Vibe with CLI Controller",
   "id": "/",
   "start_url": "/",
   "scope": "/",

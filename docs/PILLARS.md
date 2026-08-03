@@ -1,6 +1,6 @@
 # Product Pillars
 
-These are the current product guarantees for CLIT Controller IDE.
+These are the current product guarantees for CLI Controller IDE.
 
 ## 1. Local-First CLI Orchestration
 
@@ -32,7 +32,7 @@ still visible through diagnostics and UI state.
 
 ## 3. Deterministic Controller Actions
 
-Controller state changes use `CLITC_RESULT_V1`.
+Controller state changes use `CLIC_RESULT_V1`.
 
 Guarantees:
 

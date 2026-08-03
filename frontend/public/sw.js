@@ -1,4 +1,4 @@
-/* CLIT Controller IDE service worker — static app-shell caching ONLY.
+/* CLI Controller IDE service worker — static app-shell caching ONLY.
 
    Live state must always come from the backend, so this never caches:
    - /api/*            (chat, tasks, queue, approvals, provider state, logs)
@@ -8,7 +8,7 @@
    It caches only the built app shell + hashed static assets so the window opens
    fast and offline; everything dynamic is network-only. */
 
-const CACHE = "clitc-shell-v7";
+const CACHE = "clic-shell-v7";
 const SHELL = [
   "/",
   "/index.html",

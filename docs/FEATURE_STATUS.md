@@ -1,6 +1,6 @@
 # Feature Status
 
-This is the current implemented feature inventory for CLIT Controller IDE.
+This is the current implemented feature inventory for CLI Controller IDE.
 Historical notes were removed; this document describes the working app.
 
 ## Implemented
@@ -16,8 +16,8 @@ Historical notes were removed; this document describes the working app.
 | Direct provider terminals | Provider tabs use real PTY sessions through xterm.js, with lifecycle diagnostics. |
 | Typed input route | `/api/chat/submit` dispatches explicit controller/provider/task destinations from `InputSubmission`. |
 | Context Intelligence | Shipped Phase 1 preview/benchmark APIs with tests; live-prompt wiring is a later phase. |
-| Controller protocol | `CLITC_RESULT_V1` is the primary action protocol; invalid result blocks mutate no state. |
-| Legacy directive fallback | `agentflow-*` directives are still honored only when no `CLITC_RESULT_V1` block is present, with a compatibility event. |
+| Controller protocol | `CLIC_RESULT_V1` is the primary action protocol; invalid result blocks mutate no state. |
+| Legacy directive fallback | `agentflow-*` directives are still honored only when no `CLIC_RESULT_V1` block is present, with a compatibility event. |
 | Controller actions | answer, create task, queue steps, run command, request approval, request user, retry, reroute, complete task, cancel. |
 | Tasks | Task folders, markdown handoff files, step execution, full-sequence run, provider-lane dispatch map, continuation input, raw detail, changed-file and artifact review. |
 | Queue | Durable queue, one active item per provider, retry, skip, reroute, remove, clear, blocked/approval states, closed-loop controller consults. |

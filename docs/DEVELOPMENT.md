@@ -1,6 +1,6 @@
 # Development
 
-This is the local contributor workflow for CLIT Controller IDE.
+This is the local contributor workflow for CLI Controller IDE.
 
 ## Setup
 

@@ -1,6 +1,6 @@
 # Product Overview
 
-CLIT Controller IDE is a local-first UI for people who use CLI coding agents.
+CLI Controller IDE is a local-first UI for people who use CLI coding agents.
 It gives non-terminal users a readable way to route work, watch it stream live,
 review changes, and continue tasks without juggling several shells.
 
@@ -72,7 +72,7 @@ The Agents page detects and manages CLI tools:
 - Google Antigravity CLI
 - optional local model tools such as Ollama and MLX entry points
 
-Agent install and login helpers call the official tools. CLIT Controller does
+Agent install and login helpers call the official tools. CLI Controller does
 not store provider credentials.
 
 ### Usage And Settings
@@ -84,7 +84,7 @@ Headroom input compression, and Ponytail output discipline.
 ## Controller Protocol
 
 Controller replies can include human-readable text, but state changes are driven
-by the deterministic `CLITC_RESULT_V1` block. The backend parses and validates
+by the deterministic `CLIC_RESULT_V1` block. The backend parses and validates
 that block before mutating anything.
 
 Supported controller actions include:
@@ -101,7 +101,7 @@ Supported controller actions include:
 - cancel
 
 Legacy `agentflow-*` blocks are still supported as a compatibility fallback only
-when no `CLITC_RESULT_V1` block is present.
+when no `CLIC_RESULT_V1` block is present.
 
 ## Live Output
 
@@ -120,7 +120,7 @@ Interactive provider terminals are separate real PTY sessions over WebSocket:
 
 ## Safety Model
 
-CLIT Controller is intentionally local and single-user:
+CLI Controller is intentionally local and single-user:
 
 - binds to localhost
 - rejects foreign browser origins for mutating requests and terminal sockets
@@ -133,7 +133,7 @@ CLIT Controller is intentionally local and single-user:
 
 ## Token Controls
 
-Headroom is the input-side token compression library, applied in-process to the prompts CLIT Controller builds.
+Headroom is the input-side token compression library, applied in-process to the prompts CLI Controller builds.
 It is enabled by default and fail-open.
 
 Ponytail is the output-side prompt discipline that pushes agents toward smaller,

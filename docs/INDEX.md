@@ -1,6 +1,6 @@
 # Documentation Index
 
-CLIT Controller IDE is a local-first cockpit for orchestrating CLI coding
+CLI Controller IDE is a local-first cockpit for orchestrating CLI coding
 agents. This index only lists current reference docs for the working app.
 
 ## User And Product

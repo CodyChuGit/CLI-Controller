@@ -1,15 +1,15 @@
-# CLIT Controller IDE
+# CLI Controller IDE
 
 <p align="center">
-  <img src="frontend/public/icons/bean_web.svg" alt="CLIT Controller IDE bean icon" width="112" height="112">
+  <img src="frontend/public/icons/bean_web.svg" alt="CLI Controller IDE bean icon" width="112" height="112">
 </p>
 
 <p align="center">
-  <strong>Vibe with CLIT Controller</strong><br>
+  <strong>Vibe with CLI Controller</strong><br>
   A local-first control room for CLI coding agents.
 </p>
 
-CLIT Controller IDE is a visual interface for coordinating user-installed coding
+CLI Controller IDE is a visual interface for coordinating user-installed coding
 CLIs. It runs Codex, Claude Code, Antigravity, git, and local commands on your
 machine, then shows their work as live, reviewable task flow instead of forcing
 you to manage several terminals by hand.
@@ -65,7 +65,7 @@ you to manage several terminals by hand.
 | `antigravity` / `agy` | QA and broad checks | Tool-running, QA, second opinions, and terminal-based investigation. |
 | local tools | Workspace helper | git, shell commands, tests, preview servers, logs, and file operations. |
 
-The controller uses the deterministic `CLITC_RESULT_V1` protocol for actions.
+The controller uses the deterministic `CLIC_RESULT_V1` protocol for actions.
 Legacy `agentflow-*` directive blocks still work as a compatibility fallback, but
 validated controller actions are the primary mutation path.
 
@@ -87,8 +87,8 @@ manager (`apt install python3 nodejs git`, etc.).
 ### 2. One-command setup
 
 ```bash
-git clone https://github.com/CodyChuGit/CLIT-Controller.git
-cd CLIT-Controller
+git clone https://github.com/CodyChuGit/CLI-Controller.git
+cd CLI-Controller
 make setup     # creates .venv, installs backend (editable) + frontend deps
 make dev       # backend on :8787, Vite dev server on :5180 (hot reload)
 ```
@@ -107,7 +107,7 @@ AGENTFLOW_PORT=8787 .venv/bin/python -m agentflow   # then open http://localhost
 
 ### 3. Agent CLIs — install at least one
 
-CLIT Controller drives *your* locally-installed coding CLIs. Install them
+CLI Controller drives *your* locally-installed coding CLIs. Install them
 one-click from the **Agents** tab, or by hand:
 
 | Agent | Install |
@@ -116,7 +116,7 @@ one-click from the **Agents** tab, or by hand:
 | Claude Code | `npm install -g @anthropic-ai/claude-code` |
 | Antigravity (`agy`) | `curl -fsSL https://antigravity.google/cli/install.sh \| bash` |
 
-Each provider authenticates through its own login/keychain — CLIT Controller
+Each provider authenticates through its own login/keychain — CLI Controller
 never stores provider API keys, passwords, or tokens.
 
 ### 4. Optional integrations
@@ -153,12 +153,12 @@ provider tabs use real PTY sessions and xterm.js.
 
 ## Token Controls
 
-CLIT Controller has two token-saving layers:
+CLI Controller has two token-saving layers:
 
 - **Headroom**: input-side context compression, embedded as a Python library
-  (`headroom-ai`, installed with the backend). CLITC calls it in-process to crush
+  (`headroom-ai`, installed with the backend). CLIC calls it in-process to crush
   bulky machine context (step output tails, task-state summaries) inside the
-  prompts it builds — no proxy, and only CLITC's own agent runs are affected.
+  prompts it builds — no proxy, and only CLIC's own agent runs are affected.
   Enabled by default and fail-open: any failure leaves the prompt unchanged.
 - **Ponytail**: output-side prompt discipline injected into agent prompts. The
   default level is `full`; adjust it in Settings.

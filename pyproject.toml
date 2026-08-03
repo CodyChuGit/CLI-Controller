@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "clit-controller-ide"
+name = "cli-controller-ide"
 version = "0.1.0"
-description = "Vibe with CLIT Controller"
+description = "Vibe with CLI Controller"
 requires-python = ">=3.11"
 # Upper bounds cap the abstract supported range so an unvetted major version
 # cannot land via `pip install`; exact transitive versions are pinned in

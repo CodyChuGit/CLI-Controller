@@ -1,8 +1,8 @@
 """Pillar 1 tests — Headroom as an in-process library, always fail-open.
 
 The proxy integration was retired: Headroom now compresses bulky context blocks
-inside the prompts CLITC builds (consult tails, task-state summaries), scoped to
-CLITC's own CLI runs. These encode the acceptance criteria: on by default,
+inside the prompts CLIC builds (consult tails, task-state summaries), scoped to
+CLIC's own CLI runs. These encode the acceptance criteria: on by default,
 never required, instructions never rewritten, and any failure returns the
 original text unchanged.
 """

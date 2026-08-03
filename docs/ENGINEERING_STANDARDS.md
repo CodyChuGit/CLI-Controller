@@ -1,6 +1,6 @@
 # Engineering Standards
 
-These are the rules that keep CLIT Controller IDE reliable as a local agent
+These are the rules that keep CLI Controller IDE reliable as a local agent
 orchestration tool.
 
 ## Verification
@@ -36,7 +36,7 @@ make verify
 
 ## Controller Invariants
 
-- `CLITC_RESULT_V1` is the primary controller mutation protocol.
+- `CLIC_RESULT_V1` is the primary controller mutation protocol.
 - A valid result executes one validated action.
 - An invalid result emits a failure event and mutates no state.
 - Legacy `agentflow-*` directives are fallback only when no structured block is

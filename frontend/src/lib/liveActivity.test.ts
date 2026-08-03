@@ -58,7 +58,7 @@ describe("parseLiveActivity — codex (activity on stderr)", () => {
   it("appends the stdout final answer as the last text item, sentinel stripped", () => {
     const withAnswer = parseLiveActivity(
       "codex",
-      "Spec written.\n\n<<<CLITC_RESULT_V1\n{}\nCLITC_RESULT_V1>>>\n",
+      "Spec written.\n\n<<<CLIC_RESULT_V1\n{}\nCLIC_RESULT_V1>>>\n",
       CODEX_STDERR,
     );
     const last = withAnswer[withAnswer.length - 1];

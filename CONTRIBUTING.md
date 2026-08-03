@@ -1,6 +1,6 @@
 # Contributing
 
-CLIT Controller IDE is a local-first UI for CLI coding agents. Keep changes
+CLI Controller IDE is a local-first UI for CLI coding agents. Keep changes
 small, verified, and aligned with the current docs.
 
 ## Setup
@@ -35,7 +35,7 @@ make verify
 - Keep frontend HTTP access in `frontend/src/api.ts`.
 - Keep live output in the shared event stream.
 - Keep provider PTYs in the terminal service and Agent Dock surfaces.
-- Use `CLITC_RESULT_V1` for controller mutations.
+- Use `CLIC_RESULT_V1` for controller mutations.
 - Redact secrets before persistence or broadcast.
 
 ## Docs Rules

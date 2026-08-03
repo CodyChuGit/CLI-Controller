@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Build a macOS "CLIT Controller.app" bundle so the app launches from the Dock,
+# Build a macOS "CLI Controller.app" bundle so the app launches from the Dock,
 # Launchpad, or Spotlight with its own icon. The bundle is a thin launcher:
 # double-clicking it runs ./scripts/app.sh from this repo, which serves the
 # backend and opens the Chrome app window.
 #
-#   ./scripts/make-app.sh                  # build into ./dist-app/CLIT Controller.app
+#   ./scripts/make-app.sh                  # build into ./dist-app/CLI Controller.app
 #   ./scripts/make-app.sh /Applications    # build and install into /Applications
 #
 # Re-run after moving the repo (the launcher hard-codes this repo's path).
@@ -12,7 +12,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 REPO="$(pwd)"
-APP_NAME="CLIT Controller"
+APP_NAME="CLI Controller"
 DEST_DIR="${1:-$REPO/dist-app}"
 APP="$DEST_DIR/$APP_NAME.app"
 
@@ -28,7 +28,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 <dict>
   <key>CFBundleName</key><string>$APP_NAME</string>
   <key>CFBundleDisplayName</key><string>$APP_NAME</string>
-  <key>CFBundleIdentifier</key><string>com.clitcontroller.app</string>
+  <key>CFBundleIdentifier</key><string>com.clicontroller.app</string>
   <key>CFBundleVersion</key><string>1.0</string>
   <key>CFBundleShortVersionString</key><string>1.0</string>
   <key>CFBundlePackageType</key><string>APPL</string>

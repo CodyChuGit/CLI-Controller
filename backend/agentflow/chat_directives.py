@@ -2,7 +2,7 @@
 
 Controller output is read in priority order, newest-protocol first:
 
-1. **CLITC_RESULT_V1 (authoritative)** — the deterministic, sentinel-framed result
+1. **CLIC_RESULT_V1 (authoritative)** — the deterministic, sentinel-framed result
    parsed + validated by :mod:`agentflow.controller_protocol`. When a v1 block is
    present, ONLY it is honored: a valid block drives the action, and an **invalid**
    v1 block yields no action (so no state mutates) and is NEVER silently downgraded
@@ -40,12 +40,12 @@ MAX_RUN_DIRECTIVES = 3
 
 
 def _v1(text: str):
-    """The CLITC_RESULT_V1 parse for ``text``: (result, failure, meta)."""
+    """The CLIC_RESULT_V1 parse for ``text``: (result, failure, meta)."""
     return cp.parse_controller_result(text)
 
 
 def controller_failure(text: str) -> Optional[contracts.FailureRecord]:
-    """A typed failure when a CLITC_RESULT_V1 block is present but invalid, else
+    """A typed failure when a CLIC_RESULT_V1 block is present but invalid, else
     None. Callers surface this instead of acting (the protocol mutates no state on
     invalid output, and is never downgraded to the legacy parsers)."""
     _result, failure, _meta = _v1(text)
@@ -262,7 +262,7 @@ def controller_directive_records(text: str) -> list[dict]:
 
 
 def strip_action_blocks(text: str) -> str:
-    # Remove the authoritative CLITC_RESULT_V1 block first so its JSON never renders
+    # Remove the authoritative CLIC_RESULT_V1 block first so its JSON never renders
     # as prose, then the legacy directive blocks.
     out = cp.strip_result_block(text or "")
     for regex in (

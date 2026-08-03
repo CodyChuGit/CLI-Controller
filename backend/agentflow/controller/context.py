@@ -26,7 +26,7 @@ async def workspace_summary(workspace: Path) -> str:
         f"Workspace: {workspace} ({git_line})\n"
         f"{queue_service.summary_line(workspace)}\n"
         + (f"{live_line}\n" if live_line else "")
-        + f"Recent CLITC tasks:{task_lines}"
+        + f"Recent CLIC tasks:{task_lines}"
         + (f"\n\nCurrent task state (per agent):\n{detail}" if detail else "")
     )
 

@@ -39,7 +39,7 @@ Install the missing provider and rerun the Agents check. Antigravity may require
 
 ## Controller Output Does Not Take Action
 
-The controller mutates state only through a valid `CLITC_RESULT_V1` block.
+The controller mutates state only through a valid `CLIC_RESULT_V1` block.
 
 Check:
 
@@ -47,7 +47,7 @@ Check:
 - Logs for `controller.result_invalid`.
 - Events through `/api/events?cursor=0`.
 
-Invalid result blocks intentionally mutate no state. If no `CLITC_RESULT_V1`
+Invalid result blocks intentionally mutate no state. If no `CLIC_RESULT_V1`
 block exists, the backend can fall back to legacy `agentflow-*` directives and
 emits `controller.legacy_directives`.
 
@@ -109,7 +109,7 @@ Use approve, reject, retry, skip, reroute, or remove from the Tasks queue strip.
 ## Headroom Not Applying
 
 Headroom is enabled by default but fail-open: it runs as an in-process library
-call while CLIT Controller assembles prompts. If the `headroom` package is
+call while CLI Controller assembles prompts. If the `headroom` package is
 missing or a compression pass fails, the original context is used unchanged.
 
 Verify the library is importable in the backend venv:
