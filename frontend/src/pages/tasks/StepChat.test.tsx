@@ -91,6 +91,6 @@ describe("task step chat box", () => {
     expect(container.textContent).toContain("no reply");
     expect(container.textContent).not.toContain("No output.");
     expect(container.textContent).not.toContain("--- STDOUT ---");
-    expect(container.textContent).not.toContain("Command Line Interface Terminal Controller run");
+    expect(container.textContent).not.toContain("Command Line Interface Controller run");
   });
 });

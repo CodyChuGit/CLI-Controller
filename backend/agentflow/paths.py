@@ -1,4 +1,4 @@
-"""Filesystem locations used by Command Line Interface Terminal Controller."""
+"""Filesystem locations used by Command Line Interface Controller."""
 
 from __future__ import annotations
 

@@ -414,11 +414,11 @@ def login_provider(provider_id: str, workspace: Optional[Path]) -> dict:
     script.write_text(
         "#!/bin/zsh\n"
         f"cd {subprocess.list2cmdline([cwd])}\n"
-        f'echo "Command Line Interface Terminal Controller — {d["displayName"]} login/setup"\n'
+        f'echo "Command Line Interface Controller — {d["displayName"]} login/setup"\n'
         f'echo "$ {command}"\n'
         f"{command}\n"
         'echo ""\n'
-        'echo "Command Line Interface Terminal Controller: command finished. You can close this window."\n'
+        'echo "Command Line Interface Controller: command finished. You can close this window."\n'
         "exec /bin/zsh -i\n",
         encoding="utf-8",
     )

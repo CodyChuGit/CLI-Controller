@@ -97,7 +97,7 @@ def test_step_exchanges_rebuilt_from_log_files(tmp_path):
 # A run .log file as written by process_runner._write_log_file.
 def _log_file(stdout: str, stderr: str = "", status: str = "succeeded", exit_code: int = 0) -> str:
     return (
-        "# Command Line Interface Terminal Controller run abc123\n"
+        "# Command Line Interface Controller run abc123\n"
         "# command: /opt/homebrew/bin/claude -p 'Budget context: ... big prompt'\n"
         "# cwd: /tmp/ws\n"
         f"# status: {status}  exit: {exit_code}  duration_ms: 100\n"
@@ -110,7 +110,7 @@ def test_extract_log_reply_strips_scaffolding():
     out = task_service._extract_log_reply(_log_file("Wrote 04_CLAUDE_IMPLEMENTATION_SUMMARY.md."))
     assert out == "Wrote 04_CLAUDE_IMPLEMENTATION_SUMMARY.md."
     # The metadata header, echoed command/prompt, and banners are gone.
-    assert "Command Line Interface Terminal Controller run" not in out
+    assert "Command Line Interface Controller run" not in out
     assert "Budget context" not in out
     assert "--- STDOUT ---" not in out
 
@@ -146,5 +146,5 @@ def test_step_exchanges_returns_reply_not_log_scaffolding(tmp_path):
     ex = task_service.step_exchanges(ws, meta["id"])
     out = ex["claude_implement"][0]["output"]
     assert out == "Implemented the scheduler integration."
-    assert "Command Line Interface Terminal Controller run" not in out
+    assert "Command Line Interface Controller run" not in out
     assert "Budget context" not in out

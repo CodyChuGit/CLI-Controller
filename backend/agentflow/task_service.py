@@ -268,7 +268,7 @@ def _extract_log_reply(log_text: str) -> str:
     """Pull just the agent's stdout out of a run ``.log`` file.
 
     The log file (``process_runner._write_log_file``) wraps the reply in
-    scaffolding: a ``# Command Line Interface Terminal Controller run`` metadata
+    scaffolding: a ``# Command Line Interface Controller run`` metadata
     header, the echoed command/prompt, and ``--- STDOUT ---`` / ``--- STDERR ---``
     banners. A step's chat reply must show the *reply*, not that scaffolding, so we
     return only the STDOUT section — falling back to STDERR when stdout is empty
