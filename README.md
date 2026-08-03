@@ -9,12 +9,99 @@
   A local-first control room for CLI coding agents.
 </p>
 
-CLI Controller IDE is a visual interface for coordinating user-installed coding
-CLIs. It runs Codex, Claude Code, Antigravity, git, and local commands on your
-machine, then shows their work as live, reviewable task flow instead of forcing
-you to manage several terminals by hand.
+You already pay for Codex, Claude Code, and Antigravity. CLI Controller IDE runs
+them together on your machine — one asks for a spec, another writes the code, a
+third QAs it — and shows the whole thing as a task you can read, retry, and
+commit. No API keys, no cloud, no eight terminal tabs.
 
-## What It Does
+---
+
+## Ask once. It plans the work and cues the agents.
+
+Describe what you want in plain language. The controller decides which steps are
+needed, which CLI is best for each one, and queues them — you approve, you don't
+micromanage.
+
+<p align="center">
+  <img src="docs/assets/controller-chat.png" alt="Controller chat turning a one-line request into a planned, queued task" width="620">
+</p>
+
+One sentence in ("create .md files for next steps in a future features doc") and
+you get a plan back: which step, which agent, what it will touch — then the task
+is created and queued. Every provider has its own tab in the same dock, plus a
+real terminal if you'd rather drive it yourself.
+
+## Watch the whole task, agent by agent.
+
+<p align="center">
+  <img src="docs/assets/tasks.png" alt="Tasks workbench showing Codex, Claude, and Antigravity lanes on one task" width="900">
+</p>
+
+One dark-mode feature, **three steps across three CLIs**: Codex wrote the spec
+and the implementation plan, Claude wrote the code, Antigravity ran QA — and
+each one's output, artifacts, and exact prompt are one click away. A
+step that fails doesn't lose the task: it sits in the queue with **Retry** and
+**Skip**, and you can tell the controller what to do next without starting over.
+
+**What that saves you:** you stop copy-pasting context between three terminals,
+and you stop re-explaining the task to each agent.
+
+## Know what quota you have left — before you spend it.
+
+<p align="center">
+  <img src="docs/assets/usage.png" alt="Usage tab with live Claude and Codex quota and routing recommendations" width="900">
+</p>
+
+Real remaining quota, read from each CLI, with the reset time. Pick a
+traffic-control mode — **Maximum Quality**, **Balanced**, **Budget Saver**,
+**Manual Approval** — and the routing recommendation tells you where the cheap
+wins are ("Claude allowed for implementation only", "use Codex for
+planning/review"). Run out on one provider and work reroutes to another instead
+of stopping.
+
+## Spend fewer tokens on every run.
+
+<p align="center">
+  <img src="docs/assets/settings.png" alt="Settings showing routing defaults, Headroom compression, and Ponytail discipline" width="900">
+</p>
+
+Two layers, both on by default. **Headroom** compresses the bulky machine
+context (logs, step output, task state) inside prompts before they're sent.
+**Ponytail** injects output-side discipline so agents write the smallest thing
+that works instead of a framework. Set which provider takes which role once, and
+every task follows it.
+
+## Every CLI in one screen.
+
+<p align="center">
+  <img src="docs/assets/agents.png" alt="Agents tab detecting installed CLIs with versions, models, and login" width="900">
+</p>
+
+Detects what's installed, shows versions, installs what isn't, opens the right
+login flow, and lets you pick the model per provider. Authentication stays in
+each CLI's own keychain — CLI Controller never stores your API keys.
+
+## Give agents a map of your codebase, and the real source of your dependencies.
+
+| | |
+| --- | --- |
+| <img src="docs/assets/memory-graph.png" alt="Memory tab — 3D knowledge graph of the codebase" width="440"> | <img src="docs/assets/sources.png" alt="Sources tab — real source of a fetched npm package" width="440"> |
+| **Memory** — index the workspace into a queryable knowledge graph (3,215 nodes for this repo) so agents look up callers and structure instead of grepping blind. | **Sources** — fetch any npm/PyPI/crates package's actual source. Agents read the real API instead of guessing at it. |
+
+Both are optional, and both install in one click from the **Agents** tab.
+
+## And your files, git, and output stay where you can see them.
+
+<p align="center">
+  <img src="docs/assets/explorer.png" alt="Explorer — files, git status, diffs, and run output" width="900">
+</p>
+
+File tree, editor tabs, git status and diffs, stage and commit — with live run
+output underneath, so you review what an agent changed without leaving the app.
+
+---
+
+## Every Surface
 
 | Surface | Purpose |
 | --- | --- |
@@ -27,7 +114,7 @@ you to manage several terminals by hand.
 | Logs | Redacted global logs and active run tails. |
 | Memory | 3D codebase knowledge-graph explorer (via `codebase-memory-mcp`): index the workspace, filter/search nodes, hotspots, and a node drawer with source + callers/callees. |
 | Sources | Fetch and browse any open-source package's real source (via `opensrc`) — for you and the agents. |
-| Settings | Routing defaults, command templates, Headroom proxy, and Ponytail prompt discipline. |
+| Settings | Routing defaults, command templates, Headroom compression, and Ponytail prompt discipline. |
 
 > **Note on live quota:** Codex (session `rate_limits` on disk) and Claude Code
 > (`claude -p "/usage"` intercepted headlessly) report real remaining quota, so
@@ -46,15 +133,6 @@ you to manage several terminals by hand.
 > `scripts/` dir, or the vendored snapshot under
 > `backend/agentflow/orchestrator/_engine_snapshot/` is used (refresh it with
 > `scripts/sync-engine.sh`).
-
-## Screenshots
-
-|  |  |
-| --- | --- |
-| ![Memory — codebase-memory-mcp's graph viewer embedded](docs/assets/memory-graph.png) | ![Sources — browse any package's real source](docs/assets/sources.png) |
-| **Memory** — this repo's knowledge graph in codebase-memory-mcp's own "galaxy" viewer, embedded right in the tab (filter by node/edge type, search, per-file clusters). | **Sources** — fetch and read any open-source package's real source (via `opensrc`), right next to your workspace. |
-| ![Explorer — workspace, files, git](docs/assets/explorer.png) | ![Usage — traffic control and routing](docs/assets/usage.png) |
-| **Explorer** — workspace picker, file tree, git status/diffs, and live run output. | **Usage** — traffic-control modes, per-provider health, and the engine's routing recommendations. |
 
 ## Agent Roles
 
