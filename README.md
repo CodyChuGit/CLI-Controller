@@ -59,45 +59,9 @@ wins are ("Claude allowed for implementation only", "use Codex for
 planning/review"). Run out on one provider and work reroutes to another instead
 of stopping.
 
-## Spend fewer tokens on every run.
-
-<p align="center">
-  <img src="docs/assets/settings.png" alt="Settings showing routing defaults, Headroom compression, and Ponytail discipline" width="900">
-</p>
-
-Two layers, both on by default. **Headroom** compresses the bulky machine
-context (logs, step output, task state) inside prompts before they're sent.
-**Ponytail** injects output-side discipline so agents write the smallest thing
-that works instead of a framework. Set which provider takes which role once, and
-every task follows it.
-
-## Every CLI in one screen.
-
-<p align="center">
-  <img src="docs/assets/agents.png" alt="Agents tab detecting installed CLIs with versions, models, and login" width="900">
-</p>
-
-Detects what's installed, shows versions, installs what isn't, opens the right
-login flow, and lets you pick the model per provider. Authentication stays in
-each CLI's own keychain — CLI Controller never stores your API keys.
-
-## Give agents a map of your codebase, and the real source of your dependencies.
-
-| | |
-| --- | --- |
-| <img src="docs/assets/memory-graph.png" alt="Memory tab — 3D knowledge graph of the codebase" width="440"> | <img src="docs/assets/sources.png" alt="Sources tab — real source of a fetched npm package" width="440"> |
-| **Memory** — index the workspace into a queryable knowledge graph (3,215 nodes for this repo) so agents look up callers and structure instead of grepping blind. | **Sources** — fetch any npm/PyPI/crates package's actual source. Agents read the real API instead of guessing at it. |
-
-Both are optional, and both install in one click from the **Agents** tab.
-
-## And your files, git, and output stay where you can see them.
-
-<p align="center">
-  <img src="docs/assets/explorer.png" alt="Explorer — files, git status, diffs, and run output" width="900">
-</p>
-
-File tree, editor tabs, git status and diffs, stage and commit — with live run
-output underneath, so you review what an agent changed without leaving the app.
+On top of that, two token-saving layers run by default: **Headroom** compresses
+bulky machine context inside prompts before they're sent, and **Ponytail** keeps
+agent output to the smallest thing that works.
 
 ---
 
