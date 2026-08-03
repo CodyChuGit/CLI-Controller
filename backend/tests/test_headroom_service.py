@@ -59,11 +59,19 @@ def test_zero_savings_returns_original(monkeypatch):
 
 def test_real_library_crushes_loggy_context(monkeypatch):
     """End-to-end through the actual headroom package: repetitive machine output
-    compresses substantially and the stats counters advance."""
+    compresses and the stats counters advance.
+
+    The bound is deliberately loose. Since headroom-ai 0.33 the heavy squeeze
+    comes from a HuggingFace "Kompress" model that only ships with the optional
+    ``headroom-ai[ml]`` extra (and needs a first-run warmup); without it the
+    library falls back to rule-based transforms and saves ~20% instead of ~60%.
+    We do not want PyTorch in CI, so assert only that real compression happened
+    — this still fails if the library stops compressing altogether.
+    """
     monkeypatch.setattr(headroom_service, "settings", lambda: ENABLED)
     before_saved = headroom_service._stats["tokensSaved"]
     out = asyncio.run(headroom_service.compress_context(LOGGY, instructions="What failed?"))
-    assert len(out) < len(LOGGY) / 2
+    assert len(out) < len(LOGGY) * 0.9
     assert headroom_service._stats["tokensSaved"] > before_saved
 
 
