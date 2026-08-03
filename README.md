@@ -1,7 +1,7 @@
 # CLI Controller IDE
 
 <p align="center">
-  <img src="frontend/public/icons/bean_web.svg" alt="CLI Controller IDE bean icon" width="112" height="112">
+  <img src="frontend/public/icons/merge_web.svg" alt="CLI Controller IDE merge icon" width="112" height="112">
 </p>
 
 <p align="center">

@@ -49,9 +49,9 @@ exec "$REPO/scripts/app.sh"
 LAUNCH
 chmod +x "$APP/Contents/MacOS/launch"
 
-# --- icon (bean SVG -> PNG -> .icns) ----------------------------------------
+# --- icon (merge SVG -> PNG -> .icns) ----------------------------------------
 # Keep the web and macOS app icons on the same promoted SVG source.
-BASE="$REPO/frontend/public/icons/bean-512.png"
+BASE="$REPO/frontend/public/icons/merge-512.png"
 
 if [ -f "$BASE" ] && command -v sips >/dev/null 2>&1 && command -v iconutil >/dev/null 2>&1; then
   TMP="$(mktemp -d)"
@@ -68,7 +68,7 @@ if [ -f "$BASE" ] && command -v sips >/dev/null 2>&1 && command -v iconutil >/de
   rm -f "$ICONSET/icon_64x64.png" "$ICONSET/icon_1024x1024.png"  # not standard iconset names
   iconutil -c icns "$ICONSET" -o "$APP/Contents/Resources/icon.icns" && echo "==> Icon built"
 else
-  echo "==> warn: bean-512.png / sips / iconutil unavailable; bundle will use a generic icon." >&2
+  echo "==> warn: merge-512.png / sips / iconutil unavailable; bundle will use a generic icon." >&2
 fi
 
 # Nudge Finder/Launchpad to pick up the new bundle + icon.

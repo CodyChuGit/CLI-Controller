@@ -135,7 +135,7 @@ export default function ActivityBar({ page, onNavigate }: Props) {
       aria-label="Main navigation"
     >
       <img
-        src="/icons/bean.svg"
+        src="/icons/merge.svg"
         alt=""
         aria-hidden="true"
         draggable={false}

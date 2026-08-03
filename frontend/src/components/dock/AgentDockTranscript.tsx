@@ -3,7 +3,7 @@ import { STEP_META, StepChip } from "../Markdown";
 import { ApprovalCard } from "../TaskViews";
 import TimelineCard from "../TimelineCard";
 import { Message, PROVIDER_DOT, ProviderMark } from "../conversation/Message";
-import { BeanMark, ChatBubble, Spinner } from "../icons";
+import { MergeMark, ChatBubble, Spinner } from "../icons";
 import { EmptyState } from "../ui";
 import { cardFromStreamEvent } from "../../lib/displayModel";
 import { useRecentEvents, useRunStream } from "../../stream";
@@ -150,7 +150,7 @@ export default function AgentDockTranscript({
         isOrch ? (
           <EmptyState
             className="h-full px-2"
-            icon={<BeanMark />}
+            icon={<MergeMark />}
             message="Ask the controller for work — it creates tasks and cues the agents."
           >
             <div className="flex flex-wrap justify-center gap-1">

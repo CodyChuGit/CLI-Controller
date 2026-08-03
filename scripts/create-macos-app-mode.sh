@@ -45,8 +45,8 @@ exec "$REPO/scripts/app-mode.sh"
 LAUNCH
 chmod +x "$APP/Contents/MacOS/launch"
 
-# Use the bean SVG source to refresh PNGs before building the .icns.
-ICON_PNG="$REPO/frontend/public/icons/bean-512.png"
+# Use the merge SVG source to refresh PNGs before building the .icns.
+ICON_PNG="$REPO/frontend/public/icons/merge-512.png"
 
 if [ -f "$ICON_PNG" ] && command -v sips >/dev/null 2>&1 && command -v iconutil >/dev/null 2>&1; then
   TMP="$(mktemp -d)"; ICONSET="$TMP/icon.iconset"; mkdir -p "$ICONSET"
@@ -58,7 +58,7 @@ if [ -f "$ICON_PNG" ] && command -v sips >/dev/null 2>&1 && command -v iconutil 
   iconutil -c icns "$ICONSET" -o "$APP/Contents/Resources/icon.icns" >/dev/null 2>&1 && echo "==> Icon built" \
     || echo "==> warn: icon build failed; bundle uses a generic icon." >&2
 else
-  echo "==> warn: bean-512.png / sips / iconutil unavailable; bundle uses a generic icon." >&2
+  echo "==> warn: merge-512.png / sips / iconutil unavailable; bundle uses a generic icon." >&2
 fi
 
 touch "$APP"  # nudge Finder/Launchpad to pick up the bundle + icon
