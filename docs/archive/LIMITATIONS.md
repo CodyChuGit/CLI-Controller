@@ -12,12 +12,12 @@ acceptance criteria:
 
 - [docs/audit/INITIAL_AUDIT.md](audit/INITIAL_AUDIT.md) — full findings register.
 - [docs/audit/FINAL_REPORT.md](audit/FINAL_REPORT.md) §15 — remaining risks.
-- [docs/PILLARS.md](PILLARS.md) — the ◐ partial acceptance criteria.
+- [docs/PILLARS.md](../PILLARS.md) — the ◐ partial acceptance criteria.
 
 Cross-references: threat model and accepted security risks in
-[docs/SECURITY.md](SECURITY.md); architecture and data flow in
-[docs/ARCHITECTURE.md](ARCHITECTURE.md); the auto-run policy decision in
-[docs/adr/0001-auto-run-policy-allowlist.md](adr/0001-auto-run-policy-allowlist.md).
+[docs/SECURITY.md](../SECURITY.md); architecture and data flow in
+[docs/ARCHITECTURE.md](../ARCHITECTURE.md); the auto-run policy decision in
+[docs/adr/0001-auto-run-policy-allowlist.md](../adr/0001-auto-run-policy-allowlist.md).
 
 **Blocks production?** is answered for the product's actual deployment model
 (one developer, one machine, loopback). "No" can still mean "fix before any
@@ -39,9 +39,9 @@ multi-user or networked deployment" — that case is called out per entry.
   schema placeholder.
 - **Risk:** Low — purely a missing read-only view.
 - **Direction:** Render the `TokenEfficiencyReport` in a metrics panel.
-- **Source:** [contracts.py](../backend/agentflow/contracts.py),
-  [headroom_service.py](../backend/agentflow/headroom_service.py); Pillar 1 ◐ in
-  [PILLARS.md](PILLARS.md).
+- **Source:** [contracts.py](../../backend/agentflow/contracts.py),
+  [headroom_service.py](../../backend/agentflow/headroom_service.py); Pillar 1 ◐ in
+  [PILLARS.md](../PILLARS.md).
 - **Blocks production?** No.
 
 ### Orchestrator emits markdown directive blocks, not native structured output
@@ -59,10 +59,10 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Risk:** Medium for correctness of agent control flow; low for safety.
 - **Direction:** Move to provider structured-output / tool-call mode for
   directives, keeping the contract validator as the boundary.
-- **Source:** [chat_directives.py](../backend/agentflow/chat_directives.py)
+- **Source:** [chat_directives.py](../../backend/agentflow/chat_directives.py)
   (`RUN_DIRECTIVE_RE`, `controller_directive_records`),
-  [contracts.py](../backend/agentflow/contracts.py); Pillar 5 ◐ in
-  [PILLARS.md](PILLARS.md).
+  [contracts.py](../../backend/agentflow/contracts.py); Pillar 5 ◐ in
+  [PILLARS.md](../PILLARS.md).
 - **Blocks production?** No.
 
 ---
@@ -81,8 +81,8 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Risk:** Medium — silent shape drift between backend and frontend.
 - **Direction:** Introduce runtime validation (e.g. zod) at the `api.ts`
   boundary, extending the pattern already used for the `StreamEvent` path.
-- **Source:** [api.ts](../frontend/src/api.ts) (`res.json() as Promise<T>`),
-  [lib/streamEvent.ts](../frontend/src/lib/streamEvent.ts) (`coerceStreamEvent`);
+- **Source:** [api.ts](../../frontend/src/api.ts) (`res.json() as Promise<T>`),
+  [lib/streamEvent.ts](../../frontend/src/lib/streamEvent.ts) (`coerceStreamEvent`);
   audit P2-14, FINAL_REPORT §15.
 - **Blocks production?** No.
 
@@ -98,8 +98,8 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Risk:** Medium for maintainability; no active defect.
 - **Direction:** Extract data/polling logic into hooks; keep components
   presentational.
-- **Source:** [ChatPanel.tsx](../frontend/src/components/ChatPanel.tsx),
-  [TasksPage.tsx](../frontend/src/pages/TasksPage.tsx); audit P2-18/P2-26.
+- **Source:** `ChatPanel.tsx` (removed — superseded by the agent dock),
+  [TasksPage.tsx](../../frontend/src/pages/TasksPage.tsx); audit P2-18/P2-26.
 - **Blocks production?** No.
 
 ### Auto-scroll hook not adopted at all call sites
@@ -116,10 +116,10 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Risk:** Low — UX inconsistency, not a functional defect.
 - **Direction:** Adopt `useAutoScroll` at the remaining legacy scroll call sites
   and audit reduced-motion handling on each.
-- **Source:** [hooks/useAutoScroll.ts](../frontend/src/hooks/useAutoScroll.ts)
+- **Source:** [hooks/useAutoScroll.ts](../../frontend/src/hooks/useAutoScroll.ts)
   (unreferenced in `src/` outside its test),
-  [SmoothStreamingText.tsx](../frontend/src/components/SmoothStreamingText.tsx);
-  Pillar 4 ◐ in [PILLARS.md](PILLARS.md).
+  [SmoothStreamingText.tsx](../../frontend/src/components/SmoothStreamingText.tsx);
+  Pillar 4 ◐ in [PILLARS.md](../PILLARS.md).
 - **Blocks production?** No.
 
 ### CLI output normalization beyond ANSI is partial
@@ -134,10 +134,10 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Risk:** Low.
 - **Direction:** Add per-tool output classifiers feeding the existing command/test
   summary contracts.
-- **Source:** [lib/ansi.ts](../frontend/src/lib/ansi.ts),
-  [lib/displayModel.ts](../frontend/src/lib/displayModel.ts),
-  [components/RawDetail.tsx](../frontend/src/components/RawDetail.tsx); Pillar 3 ◐
-  in [PILLARS.md](PILLARS.md).
+- **Source:** [lib/ansi.ts](../../frontend/src/lib/ansi.ts),
+  [lib/displayModel.ts](../../frontend/src/lib/displayModel.ts),
+  [components/RawDetail.tsx](../../frontend/src/components/RawDetail.tsx); Pillar 3 ◐
+  in [PILLARS.md](../PILLARS.md).
 - **Blocks production?** No.
 
 ---
@@ -158,8 +158,8 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Risk:** Medium for responsiveness as ledgers grow; low for correctness.
 - **Direction:** Offload ledger I/O off the loop (thread executor or async file
   I/O), starting with the dispatcher tick.
-- **Source:** [queue_service.py](../backend/agentflow/queue_service.py) (`tick`,
-  `dispatcher_loop`), [config.py](../backend/agentflow/config.py)
+- **Source:** [queue_service.py](../../backend/agentflow/queue_service.py) (`tick`,
+  `dispatcher_loop`), [config.py](../../backend/agentflow/config.py)
   (`read_json`/`write_json`); audit P2-02/P2-06/P2-08, FINAL_REPORT §15.
 - **Blocks production?** No.
 
@@ -180,9 +180,9 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Risk:** Low for this app; medium if the API is consumed by other clients.
 - **Direction:** Map domain errors to proper status codes and add a global
   exception handler with a typed error envelope.
-- **Source:** [queue_service.py](../backend/agentflow/queue_service.py),
-  [api/routes_queue.py](../backend/agentflow/api/routes_queue.py),
-  [app.py](../backend/agentflow/app.py); audit P2-13/P3-22.
+- **Source:** [queue_service.py](../../backend/agentflow/queue_service.py),
+  [api/routes_queue.py](../../backend/agentflow/api/routes_queue.py),
+  [app.py](../../backend/agentflow/app.py); audit P2-13/P3-22.
 - **Blocks production?** No (single-app consumer).
 
 ---
@@ -201,10 +201,10 @@ multi-user or networked deployment" — that case is called out per entry.
   collide are infrequent, and atomic writes prevent torn files.
 - **Risk:** Medium — this is the highest-priority remaining correctness item.
 - **Direction:** Add a per-workspace lock around ledger read-modify-write.
-- **Source:** [state_store.py](../backend/agentflow/state_store.py)
+- **Source:** [state_store.py](../../backend/agentflow/state_store.py)
   (`append_event` and the `write_json` callers),
-  [config.py](../backend/agentflow/config.py) (`write_json`),
-  [queue_service.py](../backend/agentflow/queue_service.py); audit P1-01/P2-01/P2-07,
+  [config.py](../../backend/agentflow/config.py) (`write_json`),
+  [queue_service.py](../../backend/agentflow/queue_service.py); audit P1-01/P2-01/P2-07,
   FINAL_REPORT §15.
 - **Blocks production?** No for single-user; **yes** for any concurrent/multi-user
   deployment.
@@ -220,9 +220,9 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Risk:** Low at single-user scale; grows with history size.
 - **Direction:** Keep JSON for the local model; consider an embedded store only if
   scale demands it.
-- **Source:** [state_store.py](../backend/agentflow/state_store.py),
-  [paths.py](../backend/agentflow/paths.py),
-  [config.py](../backend/agentflow/config.py); [ARCHITECTURE.md](ARCHITECTURE.md).
+- **Source:** [state_store.py](../../backend/agentflow/state_store.py),
+  [paths.py](../../backend/agentflow/paths.py),
+  [config.py](../../backend/agentflow/config.py); [ARCHITECTURE.md](../ARCHITECTURE.md).
 - **Blocks production?** No (design choice for local-first).
 
 ---
@@ -240,7 +240,7 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Risk:** Low for the intended usage.
 - **Direction:** Per-workspace dispatchers if concurrent multi-workspace
   autonomy is needed.
-- **Source:** [queue_service.py](../backend/agentflow/queue_service.py)
+- **Source:** [queue_service.py](../../backend/agentflow/queue_service.py)
   (`dispatcher_loop`); audit P3-08.
 - **Blocks production?** No.
 
@@ -253,8 +253,8 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Workaround:** Bounded scrollback replay on reconnect restores recent context.
 - **Risk:** Low — affects display fidelity, not the underlying shell.
 - **Direction:** Backpressure or a resync cursor for the terminal stream.
-- **Source:** [terminal_service.py](../backend/agentflow/terminal_service.py),
-  [api/routes_terminals.py](../backend/agentflow/api/routes_terminals.py); audit
+- **Source:** [terminal_service.py](../../backend/agentflow/terminal_service.py),
+  [api/routes_terminals.py](../../backend/agentflow/api/routes_terminals.py); audit
   P2-12/P3-13.
 - **Blocks production?** No.
 
@@ -275,9 +275,9 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Risk:** Medium — resource/port leak after abnormal exit.
 - **Direction:** Record child pids/process-group ids durably and reap them
   (pid-reuse-safe) during restart recovery.
-- **Source:** [app.py](../backend/agentflow/app.py) (lifespan `cancel_all`),
-  [state_store.py](../backend/agentflow/state_store.py) (recovery settles ledger,
-  no process signal), [process_runner.py](../backend/agentflow/process_runner.py);
+- **Source:** [app.py](../../backend/agentflow/app.py) (lifespan `cancel_all`),
+  [state_store.py](../../backend/agentflow/state_store.py) (recovery settles ledger,
+  no process signal), [process_runner.py](../../backend/agentflow/process_runner.py);
   audit P2-05, FINAL_REPORT §15.
 - **Blocks production?** No (recoverable manually); fix recommended.
 
@@ -286,7 +286,7 @@ multi-user or networked deployment" — that case is called out per entry.
 ## Security
 
 > The full threat model and the explicitly accepted risks live in
-> [SECURITY.md](SECURITY.md). The two items below are the ones most likely to
+> [SECURITY.md](../SECURITY.md). The two items below are the ones most likely to
 > surprise someone evaluating the tool.
 
 ### Single-user, no authentication (by design)
@@ -301,8 +301,8 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Risk:** High **if** the loopback assumption is violated; otherwise accepted.
 - **Direction:** Authentication/authorization would be required before any
   non-loopback or multi-user deployment.
-- **Source:** [app.py](../backend/agentflow/app.py),
-  [origins.py](../backend/agentflow/origins.py); audit P3-40, SECURITY.md.
+- **Source:** [app.py](../../backend/agentflow/app.py),
+  [origins.py](../../backend/agentflow/origins.py); audit P3-40, SECURITY.md.
 - **Blocks production?** No for local-first; **yes** for any networked/multi-user
   deployment.
 
@@ -318,8 +318,8 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Risk:** Low under the single-user loopback model; documented as accepted.
 - **Direction:** Require a same-origin token for WS handshakes if the loopback
   assumption is ever relaxed.
-- **Source:** [api/routes_terminals.py](../backend/agentflow/api/routes_terminals.py),
-  [origins.py](../backend/agentflow/origins.py); audit P3-38, SECURITY.md §15.
+- **Source:** [api/routes_terminals.py](../../backend/agentflow/api/routes_terminals.py),
+  [origins.py](../../backend/agentflow/origins.py); audit P3-38, SECURITY.md §15.
 - **Blocks production?** No for local-first; revisit for networked deployment.
 
 ---
@@ -335,8 +335,8 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Workaround:** Mouse users are unaffected; the dialog still functions.
 - **Risk:** Medium for keyboard/AT users.
 - **Direction:** Add a focus trap and restore focus on close.
-- **Source:** [components/CommandPalette.tsx](../frontend/src/components/CommandPalette.tsx),
-  [ChatPanel.tsx](../frontend/src/components/ChatPanel.tsx); audit P2-19.
+- **Source:** [components/CommandPalette.tsx](../../frontend/src/components/CommandPalette.tsx),
+  `ChatPanel.tsx` (removed — superseded by the agent dock); audit P2-19.
 - **Blocks production?** No.
 
 ### Streaming replies have no `aria-live` region
@@ -347,8 +347,8 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Workaround:** None in-app.
 - **Risk:** Medium for AT users.
 - **Direction:** Wrap the streaming reply in a polite `aria-live` region.
-- **Source:** [ChatPanel.tsx](../frontend/src/components/ChatPanel.tsx),
-  [SmoothStreamingText.tsx](../frontend/src/components/SmoothStreamingText.tsx);
+- **Source:** `ChatPanel.tsx` (removed — superseded by the agent dock),
+  [SmoothStreamingText.tsx](../../frontend/src/components/SmoothStreamingText.tsx);
   audit P2-20.
 - **Blocks production?** No.
 
@@ -364,9 +364,9 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Risk:** Medium for keyboard/AT users.
 - **Direction:** Implement the keyboard contracts for the declared roles; replace
   `window.confirm` with an accessible modal.
-- **Source:** [ChatPanel.tsx](../frontend/src/components/ChatPanel.tsx)
+- **Source:** `ChatPanel.tsx` (removed — superseded by the agent dock)
   (`role="listbox"`, `role="tab"`, `window.confirm`),
-  [pages/ProjectsPage.tsx](../frontend/src/pages/ProjectsPage.tsx); audit
+  [pages/ProjectsPage.tsx](../../frontend/src/pages/ProjectsPage.tsx); audit
   P2-21/P3-30.
 - **Blocks production?** No.
 
@@ -388,7 +388,7 @@ multi-user or networked deployment" — that case is called out per entry.
 - **Direction:** Add a small Playwright suite for the critical live-output and
   terminal flows; add HTTP-level route tests.
 - **Source:** `frontend/` (no e2e config present),
-  [backend/tests/](../backend/tests/); audit P3-43.
+  [backend/tests/](../../backend/tests/); audit P3-43.
 - **Blocks production?** No.
 
 ---
@@ -405,10 +405,10 @@ multi-user or networked deployment" — that case is called out per entry.
   are not.
 - **Risk:** Low within the stated target (macOS).
 - **Direction:** Abstract the OS-open layer if cross-platform support is pursued.
-- **Source:** [api/routes_tasks.py](../backend/agentflow/api/routes_tasks.py)
-  (`open`), [api/routes_projects.py](../backend/agentflow/api/routes_projects.py)
-  (`open`), [provider_probe.py](../backend/agentflow/provider_probe.py)
-  (`open -a Terminal`), [scripts/](../scripts/); INITIAL_AUDIT assumptions.
+- **Source:** [api/routes_tasks.py](../../backend/agentflow/api/routes_tasks.py)
+  (`open`), [api/routes_projects.py](../../backend/agentflow/api/routes_projects.py)
+  (`open`), [provider_probe.py](../../backend/agentflow/provider_probe.py)
+  (`open -a Terminal`), [scripts/](../../scripts/); INITIAL_AUDIT assumptions.
 - **Blocks production?** No for macOS target; **yes** for other platforms.
 
 ---
@@ -426,7 +426,7 @@ multi-user or networked deployment" — that case is called out per entry.
   loopback.
 - **Risk:** Low — dev-only, fix requires a breaking Vite major upgrade.
 - **Direction:** Upgrade Vite when ready to absorb the major-version break.
-- **Source:** [frontend/package.json](../frontend/package.json),
-  [frontend/package-lock.json](../frontend/package-lock.json); audit P3-23,
+- **Source:** [frontend/package.json](../../frontend/package.json),
+  [frontend/package-lock.json](../../frontend/package-lock.json); audit P3-23,
   FINAL_REPORT §15.
 - **Blocks production?** No.

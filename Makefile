@@ -23,15 +23,15 @@ dev: ## Run backend (:8787) + Vite dev server (:5180)
 	./scripts/dev.sh
 
 format: ## Auto-format backend (ruff) and frontend (prettier)
-	$(RUFF) format backend
+	$(RUFF) format backend scripts
 	$(NPM) run format
 
 format-check: ## Verify formatting without writing
-	$(RUFF) format --check backend
+	$(RUFF) format --check backend scripts
 	$(NPM) run format:check
 
 lint: ## Lint backend (ruff) and frontend (eslint)
-	$(RUFF) check backend
+	$(RUFF) check backend scripts
 	$(NPM) run lint
 
 typecheck: ## Type-check backend (mypy) and frontend (tsc)

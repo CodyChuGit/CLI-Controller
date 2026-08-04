@@ -13,30 +13,30 @@ coding agents (`codex`, `claude`, `agy`/antigravity) as subprocesses, runs PTY t
 over WebSockets, manages a git workspace, and streams agent output live (SSE + polling).
 
 - It binds **loopback only** (`127.0.0.1:8787`, env `AGENTFLOW_PORT`) and has **no
-  authentication by design** — see [SECURITY.md](../SECURITY.md). Browser-origin safety
+  authentication by design** — see [SECURITY.md](../../SECURITY.md). Browser-origin safety
   is enforced by an allowlist shared across CORS, CSRF, and the WebSocket check
-  ([origins.py](../../backend/agentflow/origins.py), `OriginGuardMiddleware` in
-  [app.py](../../backend/agentflow/app.py)).
+  ([origins.py](../../../backend/agentflow/origins.py), `OriginGuardMiddleware` in
+  [app.py](../../../backend/agentflow/app.py)).
 - There is **no database**: all state is plaintext JSON with atomic writes, a
   cursor-resumable event ledger, and startup recovery — global `~/.agentflow/` plus
-  per-workspace `<workspace>/.agentflow/` (see [state_store.py](../../backend/agentflow/state_store.py),
-  [ARCHITECTURE.md](../ARCHITECTURE.md)).
-- The product is structured around **five pillars** ([PILLARS.md](../PILLARS.md)), with
+  per-workspace `<workspace>/.agentflow/` (see [state_store.py](../../../backend/agentflow/state_store.py),
+  [ARCHITECTURE.md](../../ARCHITECTURE.md)).
+- The product is structured around **five pillars** ([PILLARS.md](../../PILLARS.md)), with
   "Live Output Everywhere" as the defining experience.
 
 ## 2. Detected tech stack
 
 | Layer | Technology | Evidence |
 |---|---|---|
-| Backend framework | FastAPI `>=0.110,<1` on Uvicorn `[standard]` | [pyproject.toml](../../pyproject.toml) |
-| Backend validation | Pydantic v2 (`>=2.5,<3`) | [pyproject.toml](../../pyproject.toml), [contracts.py](../../backend/agentflow/contracts.py) |
-| Backend runtime | Python `>=3.11` (venv at `.venv`; system `python3` is 3.9) | [pyproject.toml](../../pyproject.toml), [Makefile](../../Makefile) |
-| Frontend framework | React 18.3 + Vite 5.4 + TypeScript 5.5 | [frontend/package.json](../../frontend/package.json) |
-| Styling | Tailwind CSS 3.4, PostCSS, Autoprefixer | [frontend/package.json](../../frontend/package.json) |
-| Terminal / syntax | xterm `@xterm/xterm` 6 + `addon-fit`; Prism.js 1.30 | [frontend/package.json](../../frontend/package.json) |
-| Backend QA | ruff (lint+format), mypy, pytest, pytest-cov, pip-audit | [pyproject.toml](../../pyproject.toml) |
-| Frontend QA | eslint 9, prettier 3, tsc, vitest 2 (+ Testing Library, jsdom) | [frontend/package.json](../../frontend/package.json) |
-| Dependency pinning | abstract ranges in `pyproject.toml`; exact pins in [requirements.lock](../../requirements.lock); npm `package-lock.json` | [pyproject.toml](../../pyproject.toml) |
+| Backend framework | FastAPI `>=0.110,<1` on Uvicorn `[standard]` | [pyproject.toml](../../../pyproject.toml) |
+| Backend validation | Pydantic v2 (`>=2.5,<3`) | [pyproject.toml](../../../pyproject.toml), [contracts.py](../../../backend/agentflow/contracts.py) |
+| Backend runtime | Python `>=3.11` (venv at `.venv`; system `python3` is 3.9) | [pyproject.toml](../../../pyproject.toml), [Makefile](../../../Makefile) |
+| Frontend framework | React 18.3 + Vite 5.4 + TypeScript 5.5 | [frontend/package.json](../../../frontend/package.json) |
+| Styling | Tailwind CSS 3.4, PostCSS, Autoprefixer | [frontend/package.json](../../../frontend/package.json) |
+| Terminal / syntax | xterm `@xterm/xterm` 6 + `addon-fit`; Prism.js 1.30 | [frontend/package.json](../../../frontend/package.json) |
+| Backend QA | ruff (lint+format), mypy, pytest, pytest-cov, pip-audit | [pyproject.toml](../../../pyproject.toml) |
+| Frontend QA | eslint 9, prettier 3, tsc, vitest 2 (+ Testing Library, jsdom) | [frontend/package.json](../../../frontend/package.json) |
+| Dependency pinning | abstract ranges in `pyproject.toml`; exact pins in [requirements.lock](../../../requirements.lock); npm `package-lock.json` | [pyproject.toml](../../../pyproject.toml) |
 
 ## 3. Detected apps / packages
 
@@ -45,37 +45,37 @@ scripts; there is no monorepo workspace tool.
 
 - **`agentflow`** — the backend Python package. Declared in `[tool.setuptools.packages.find]`
   (`where = ["backend"]`, `include = ["agentflow*"]`), distribution name
-  `cli-controller-ide` v0.1.0 ([pyproject.toml](../../pyproject.toml)). 30 modules under
-  [backend/agentflow/](../../backend/agentflow/) plus 10 routers under
-  [backend/agentflow/api/](../../backend/agentflow/api/).
+  `cli-controller-ide` v0.1.0 ([pyproject.toml](../../../pyproject.toml)). 30 modules under
+  [backend/agentflow/](../../../backend/agentflow/) plus 10 routers under
+  [backend/agentflow/api/](../../../backend/agentflow/api/).
 - **`cli-controller-ide-frontend`** — the React app, npm package v0.1.0 under
-  [frontend/](../../frontend/). Not published; `"private": true`.
-- **Backend test suite** — 31 `test_*.py` files under [backend/tests/](../../backend/tests/).
+  [frontend/](../../../frontend/). Not published; `"private": true`.
+- **Backend test suite** — 31 `test_*.py` files under [backend/tests/](../../../backend/tests/).
 - **Frontend tests** — colocated `*.test.ts(x)` (e.g. `lib/ansi.test.ts`,
   `lib/streamEvent.test.ts`, `hooks/useAutoScroll.test.ts`,
   `components/ErrorBoundary.test.tsx`, `components/Markdown.test.tsx`, `lib/taskFormat.test.ts`).
-- **Scripts** — [scripts/](../../scripts/): `install.sh`, `dev.sh`, `headroom.sh`,
+- **Scripts** — [scripts/](../../../scripts/): `install.sh`, `dev.sh`, `headroom.sh`,
   `app-mode.sh`, `app.sh`, `make-app.sh`, `create-macos-app-mode.sh`.
 
 ## 4. Runtime entry points
 
 - **Backend process**: `python -m agentflow` →
-  [backend/agentflow/__main__.py](../../backend/agentflow/__main__.py), which runs
+  [backend/agentflow/__main__.py](../../../backend/agentflow/__main__.py), which runs
   `uvicorn.run("agentflow.app:app", host="127.0.0.1", port=AGENTFLOW_PORT or 8787)`.
 - **FastAPI app object**: `app = create_app()` in
-  [backend/agentflow/app.py](../../backend/agentflow/app.py). Mounts 10 routers under
+  [backend/agentflow/app.py](../../../backend/agentflow/app.py). Mounts 10 routers under
   `/api/*`, a `/api/health` endpoint, and — when `frontend/dist/index.html` exists —
   serves the built SPA on the same port (single-port mode) with a path-traversal-guarded
   catch-all. A `_lifespan` context does startup recovery, orphaned-PTY sweep, and runs the
   queue dispatcher loop.
 - **Frontend dev server**: `vite` on port **5180**, proxying `/api` (with `ws:true`) to
-  `127.0.0.1:8787` ([frontend/vite.config.ts](../../frontend/vite.config.ts)). Frontend
-  root component `App.tsx` → `main.tsx` ([frontend/src/](../../frontend/src/)).
+  `127.0.0.1:8787` ([frontend/vite.config.ts](../../../frontend/vite.config.ts)). Frontend
+  root component `App.tsx` → `main.tsx` ([frontend/src/](../../../frontend/src/)).
 - **Production build**: `tsc && vite build` → `frontend/dist`, served by the backend on
   `:8787` (single-port mode).
 - **Optional Headroom proxy**: `scripts/headroom.sh` starts `headroom proxy` on `:8799`
   (Pillar 1); the backend routes `claude`/`codex` children through it when enabled and
-  reachable ([headroom_service.py](../../backend/agentflow/headroom_service.py)).
+  reachable ([headroom_service.py](../../../backend/agentflow/headroom_service.py)).
 
 ## 5. Existing-documentation inventory
 
@@ -83,20 +83,20 @@ Root-level docs:
 
 | File | One-line purpose |
 |---|---|
-| [README.md](../../README.md) | Product pitch, install, requirements, dev command surface, roadmap. |
-| [DESIGN.md](../../DESIGN.md) | Design language: tokens, layout primitives, component rules, Agent Dock / Tasks specs. |
-| [NEXT_STEPS.md](../../NEXT_STEPS.md) | Forward-looking phase list (polish → productize → extend). |
-| [.env.example](../../.env.example) | The two real env knobs (`AGENTFLOW_PORT`, `SHELL`) and the "no API keys here" note. |
+| [README.md](../../../README.md) | Product pitch, install, requirements, dev command surface, roadmap. |
+| [DESIGN.md](../../../DESIGN.md) | Design language: tokens, layout primitives, component rules, Agent Dock / Tasks specs. |
+| [NEXT_STEPS.md](../NEXT_STEPS.md) | Forward-looking phase list (polish → productize → extend). |
+| [.env.example](../../../.env.example) | The two real env knobs (`AGENTFLOW_PORT`, `SHELL`) and the "no API keys here" note. |
 
 `docs/`:
 
 | File | One-line purpose |
 |---|---|
-| [docs/ARCHITECTURE.md](../ARCHITECTURE.md) | What the code actually does: transport, services, state, recovery; calls out divergence from design notes. |
-| [docs/OPERATIONS.md](../OPERATIONS.md) | Runtime model, install/run, ports, state layout, lockfile, troubleshooting. |
-| [docs/SECURITY.md](../SECURITY.md) | Security posture: loopback-only, no-auth, command execution, origin guard, redaction. |
-| [docs/ENGINEERING_STANDARDS.md](../ENGINEERING_STANDARDS.md) | The repo's enforced rules (lint/format/type/test gates, style calibration). |
-| [docs/PILLARS.md](../PILLARS.md) | Authoritative statement of the 5 product pillars + interaction model. |
+| [docs/ARCHITECTURE.md](../../ARCHITECTURE.md) | What the code actually does: transport, services, state, recovery; calls out divergence from design notes. |
+| [docs/OPERATIONS.md](../../OPERATIONS.md) | Runtime model, install/run, ports, state layout, lockfile, troubleshooting. |
+| [docs/SECURITY.md](../../SECURITY.md) | Security posture: loopback-only, no-auth, command execution, origin guard, redaction. |
+| [docs/ENGINEERING_STANDARDS.md](../../ENGINEERING_STANDARDS.md) | The repo's enforced rules (lint/format/type/test gates, style calibration). |
+| [docs/PILLARS.md](../../PILLARS.md) | Authoritative statement of the 5 product pillars + interaction model. |
 | [docs/live-output-everywhere.md](../live-output-everywhere.md) | Design note: making assistant work immediate/readable/continuous across the app. |
 | [docs/local-voice-io.md](../local-voice-io.md) | Design note: optional local STT (MLX Parakeet) / TTS, review-first. |
 | [docs/phase-1-5-product-workbench.md](../phase-1-5-product-workbench.md) | Design note: Phase 1.5 workbench (readable task output, reference DB, overflow scheduling). |
@@ -107,7 +107,7 @@ Root-level docs:
 | [docs/pwa-chrome-app-mode.md](../pwa-chrome-app-mode.md) | Design note: app-like Chrome window via PWA, no Electron/Tauri/Chrome Apps. |
 | [docs/audit/INITIAL_AUDIT.md](INITIAL_AUDIT.md) | Baseline multi-agent audit with adversarially verified P1/P2/P3 findings. |
 | [docs/audit/FINAL_REPORT.md](FINAL_REPORT.md) | Production-hardening final report; companion to the initial audit. |
-| [docs/adr/0001-auto-run-policy-allowlist.md](../adr/0001-auto-run-policy-allowlist.md) | ADR: targeted auto-run command hardening rather than full allowlist inversion. |
+| [docs/adr/0001-auto-run-policy-allowlist.md](../../adr/0001-auto-run-policy-allowlist.md) | ADR: targeted auto-run command hardening rather than full allowlist inversion. |
 | [docs/orchestrator-backend/README.md](../orchestrator-backend/README.md) | Controller backend strategy index (target capability set). |
 | [docs/orchestrator-backend/01-target-capability.md](../orchestrator-backend/01-target-capability.md) | Target controller capability definition. |
 | [docs/orchestrator-backend/02-architecture-contracts.md](../orchestrator-backend/02-architecture-contracts.md) | Target architecture + contracts for the controller backend. |
@@ -120,13 +120,13 @@ Non-doc assets under `docs/`: `assets/` (README screenshots), `icon-options/`, `
 
 1. **Product-name inconsistency (highest impact).** The product expands to two different
    names across the repo:
-   - "Command Line Interface **Terminal** Controller" — in [app.py](../../backend/agentflow/app.py)
-     (`FastAPI(title=...)`), [__main__.py](../../backend/agentflow/__main__.py),
-     [__init__.py](../../backend/agentflow/__init__.py), `provider_probe.py`,
+   - "Command Line Interface **Terminal** Controller" — in [app.py](../../../backend/agentflow/app.py)
+     (`FastAPI(title=...)`), [__main__.py](../../../backend/agentflow/__main__.py),
+     [__init__.py](../../../backend/agentflow/__init__.py), `provider_probe.py`,
      `prompt_templates.py`, `paths.py`, `process_runner.py`, `ActivityBar.tsx`,
-     and [ARCHITECTURE.md](../ARCHITECTURE.md)/[OPERATIONS.md](../OPERATIONS.md).
-   - "Command Line Interface **Traffic** Controller" — in [README.md](../../README.md),
-     [DESIGN.md](../../DESIGN.md) (naming section + first-mention rule), and several design
+     and [ARCHITECTURE.md](../../ARCHITECTURE.md)/[OPERATIONS.md](../../OPERATIONS.md).
+   - "Command Line Interface **Traffic** Controller" — in [README.md](../../../README.md),
+     [DESIGN.md](../../../DESIGN.md) (naming section + first-mention rule), and several design
      notes (`text-streaming-across-the-board.md`, `vscode-style-agent-dock.md`,
      `streaming-renderer-decision.md`, `pwa-chrome-app-mode.md`,
      `ARCHITECTURE.md` references the divergence, `orchestrator-backend/*`).
@@ -136,20 +136,20 @@ Non-doc assets under `docs/`: `assets/` (README screenshots), `icon-options/`, `
 2. **DESIGN.md describes target/aspirational UI that exceeds shipped code.** DESIGN.md
    specifies a "UI/UX Reference Tab", "Local Voice I/O" controls, and a full "Agent Dock"
    provider-tab/terminal-drawer language. The shipped frontend has `pages/` for projects,
-   agents, tasks, terminals, preview, usage, logs, settings ([App.tsx](../../frontend/src/App.tsx))
+   agents, tasks, terminals, preview, usage, logs, settings ([App.tsx](../../../frontend/src/App.tsx))
    and a `ChatPanel`/`tasks/` surface, but there is **no reference-library page** and **no
    voice components** in `frontend/src/`. These should be classified as Planned/Partially
    implemented, not described as present.
 
 3. **README install/run vs. canonical command surface.** README documents a manual
    `install.sh` + `npm --prefix frontend run build` + `AGENTFLOW_PORT=8787 .venv/bin/python -m agentflow`
-   flow, while the [Makefile](../../Makefile) is the stated single command surface
+   flow, while the [Makefile](../../../Makefile) is the stated single command surface
    (`make setup|dev|verify|test|build`). Both are correct but the relationship (Makefile
    wraps the scripts) is not stated in README; OPERATIONS.md is the more complete source.
 
 4. **README "Packages Installed By The App" omits installed dev/QA tools.** README lists
    "Dev/test support: pytest" but the dev extra also installs ruff, mypy, pytest-cov, and
-   pip-audit ([pyproject.toml](../../pyproject.toml)). Minor staleness.
+   pip-audit ([pyproject.toml](../../../pyproject.toml)). Minor staleness.
 
 5. **NEXT_STEPS.md predates the pillar work.** It lists "Better streaming logs
    (SSE/WebSocket instead of polling)" and "Robust pseudo-terminal support" as future work,
@@ -168,7 +168,7 @@ Non-doc assets under `docs/`: `assets/` (README screenshots), `icon-options/`, `
 - **No top-level docs index / table of contents.** README links a subset of `docs/`;
   there is no single map of all 20+ docs and their status (design note vs. authoritative
   vs. target spec).
-- **No per-route API reference.** The 10 routers ([backend/agentflow/api/](../../backend/agentflow/api/))
+- **No per-route API reference.** The 10 routers ([backend/agentflow/api/](../../../backend/agentflow/api/))
   and the `/api/health` shape are only discoverable via FastAPI `/docs`; there is no
   written endpoint inventory.
 - **No documentation for the newly added modules** flagged for this pass:
@@ -187,10 +187,10 @@ Non-doc assets under `docs/`: `assets/` (README screenshots), `icon-options/`, `
 ## 8. Ambiguous areas (need code confirmation before documenting)
 
 - **Provider naming**: code uses provider id `antigravity` with executables `["agy",
-  "antigravity"]` and `loginCommand: "agy"` ([provider_probe.py](../../backend/agentflow/provider_probe.py));
+  "antigravity"]` and `loginCommand: "agy"` ([provider_probe.py](../../../backend/agentflow/provider_probe.py));
   the memory/README also use "antigravity" and "agy". `AGENT_PROVIDER_IDS` is
   `["codex", "claude", "antigravity"]`. Docs should use these exact ids, not "agy" as the id.
-- **Gemini vs. Antigravity for QA role**: [workflow.py](../../backend/agentflow/workflow.py)
+- **Gemini vs. Antigravity for QA role**: [workflow.py](../../../backend/agentflow/workflow.py)
   defines the `gemini_qa` step (label "QA / Test", role "qa") and writes `05_QA_RESULTS.md`,
   but the provider set and README describe Antigravity as the QA/controller CLI. The
   mapping of the `gemini_qa` step id to an actual provider needs confirmation in
@@ -202,13 +202,13 @@ Non-doc assets under `docs/`: `assets/` (README screenshots), `icon-options/`, `
   Vite dev server and proxies to `:8787`; the built app is `:8787` only.
 - **`dist/` and `dist-app/` at repo root** (plus `frontend/dist`): which is canonical for
   single-port serving needs confirmation — `app.py` serves `paths.frontend_dist()`, so
-  [paths.py](../../backend/agentflow/paths.py) is the authority, not the root `dist/`.
+  [paths.py](../../../backend/agentflow/paths.py) is the authority, not the root `dist/`.
 - **Preview routes** (`routes_preview.py`, `PreviewPage.tsx`): a preview/dev-server feature
   exists but its scope (what it previews, lifecycle) is not yet documented.
 
 ## 9. Authoritative commands
 
-Same locally and in CI ([Makefile](../../Makefile), [.github/workflows/ci.yml](../../.github/workflows/ci.yml)):
+Same locally and in CI ([Makefile](../../../Makefile), [.github/workflows/ci.yml](../../../.github/workflows/ci.yml)):
 
 ```bash
 make setup        # ./scripts/install.sh — create .venv, install backend (editable, dev extras) + frontend deps
@@ -237,25 +237,25 @@ npm audit are `continue-on-error`.
 
 ## 10. Files used as evidence
 
-- Build / config: [pyproject.toml](../../pyproject.toml), [Makefile](../../Makefile),
-  [frontend/package.json](../../frontend/package.json),
-  [frontend/vite.config.ts](../../frontend/vite.config.ts),
-  [.github/workflows/ci.yml](../../.github/workflows/ci.yml), [.env.example](../../.env.example),
-  [requirements.lock](../../requirements.lock).
-- Backend entry / transport: [backend/agentflow/__main__.py](../../backend/agentflow/__main__.py),
-  [app.py](../../backend/agentflow/app.py), [origins.py](../../backend/agentflow/origins.py),
-  `api/` routers (10 files), [workflow.py](../../backend/agentflow/workflow.py),
-  [agent_commands.py](../../backend/agentflow/agent_commands.py),
-  [chat_directives.py](../../backend/agentflow/chat_directives.py),
-  [contracts.py](../../backend/agentflow/contracts.py),
-  [headroom_service.py](../../backend/agentflow/headroom_service.py),
-  [provider_probe.py](../../backend/agentflow/provider_probe.py).
-- Frontend: [frontend/src/App.tsx](../../frontend/src/App.tsx) (page set), directory
+- Build / config: [pyproject.toml](../../../pyproject.toml), [Makefile](../../../Makefile),
+  [frontend/package.json](../../../frontend/package.json),
+  [frontend/vite.config.ts](../../../frontend/vite.config.ts),
+  [.github/workflows/ci.yml](../../../.github/workflows/ci.yml), [.env.example](../../../.env.example),
+  [requirements.lock](../../../requirements.lock).
+- Backend entry / transport: [backend/agentflow/__main__.py](../../../backend/agentflow/__main__.py),
+  [app.py](../../../backend/agentflow/app.py), [origins.py](../../../backend/agentflow/origins.py),
+  `api/` routers (10 files), [workflow.py](../../../backend/agentflow/workflow.py),
+  [agent_commands.py](../../../backend/agentflow/agent_commands.py),
+  [chat_directives.py](../../../backend/agentflow/chat_directives.py),
+  [contracts.py](../../../backend/agentflow/contracts.py),
+  [headroom_service.py](../../../backend/agentflow/headroom_service.py),
+  [provider_probe.py](../../../backend/agentflow/provider_probe.py).
+- Frontend: [frontend/src/App.tsx](../../../frontend/src/App.tsx) (page set), directory
   listings of `components/`, `pages/`, `pages/tasks/`, `lib/`, `hooks/`.
 - Docs: every file listed in [§5](#5-existing-documentation-inventory) (read headers/first
-  sections) plus full reads of [README.md](../../README.md), [DESIGN.md](../../DESIGN.md),
-  [NEXT_STEPS.md](../../NEXT_STEPS.md).
-- Scripts: [scripts/headroom.sh](../../scripts/headroom.sh) and the `scripts/` listing.
+  sections) plus full reads of [README.md](../../../README.md), [DESIGN.md](../../../DESIGN.md),
+  [NEXT_STEPS.md](../NEXT_STEPS.md).
+- Scripts: `scripts/headroom.sh` (removed — Headroom is now an in-process library, see ../../backend/agentflow/headroom_service.py) and the `scripts/` listing.
 
 ## 11. Proposed documentation package (Phase 3)
 

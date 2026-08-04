@@ -3,10 +3,10 @@
 Forward-looking work for CLI Controller IDE / AgentComposer, derived **only** from
 evidence already in the repository: the audit's recommended next actions
 ([audit/FINAL_REPORT.md](audit/FINAL_REPORT.md) §6, §15, §16), the gaps in
-[FEATURE_STATUS.md](FEATURE_STATUS.md), the partial (◐) acceptance criteria in
-[PILLARS.md](PILLARS.md), the phased backend plan in
+[FEATURE_STATUS.md](../FEATURE_STATUS.md), the partial (◐) acceptance criteria in
+[PILLARS.md](../PILLARS.md), the phased backend plan in
 [orchestrator-backend/03-implementation-roadmap.md](orchestrator-backend/03-implementation-roadmap.md),
-the product phases in [NEXT_STEPS.md](../NEXT_STEPS.md), and the README roadmap.
+the product phases in [NEXT_STEPS.md](NEXT_STEPS.md), and the README roadmap.
 
 **Status convention.** Unless an item is already committed in repo docs (a phase
 the implementation roadmap or README states as the intended direction), every entry
@@ -37,11 +37,11 @@ is an active P0 defect.
   the JSON ledger read-modify-write to close the lost-update race between the
   threadpool and the dispatcher. The audit calls this the **highest-priority
   remaining item** and recommended next action #1. Today the durable ledgers
-  ([state_store.py](../backend/agentflow/state_store.py)) use atomic writes but no
+  ([state_store.py](../../backend/agentflow/state_store.py)) use atomic writes but no
   cross-writer lock; the race is rare and largely self-correcting for one user.
 - **Move dispatcher file I/O off the event loop (P2-02/06/08/12).** Offload the
   blocking file I/O in the dispatcher tick
-  ([queue_service.py](../backend/agentflow/queue_service.py)) and curate the child
+  ([queue_service.py](../../backend/agentflow/queue_service.py)) and curate the child
   process environment. Recommended next action #2.
 - **Reap still-alive agent processes during restart recovery (P2-05).** Clean
   shutdown is covered (`RUNNER.cancel_all()`), but a hard crash can still leak a
@@ -49,7 +49,7 @@ is an active P0 defect.
   action #5; listed as a remaining risk in §15.
 
 Documented residual risks the audit **accepted** for a loopback single-user tool
-(see [SECURITY.md](SECURITY.md)) — listed here so they are not re-discovered as new
+(see [SECURITY.md](../SECURITY.md)) — listed here so they are not re-discovered as new
 findings, not proposed for change:
 
 - WebSocket allows a missing `Origin` (P3-38) and `/docs` is unauthenticated
@@ -62,18 +62,18 @@ findings, not proposed for change:
 ## 2. Near-term product completion
 
 Finish features that are already **Partial** or **Mocked** in
-[FEATURE_STATUS.md](FEATURE_STATUS.md), or whose backend phase is stated as intended
+[FEATURE_STATUS.md](../FEATURE_STATUS.md), or whose backend phase is stated as intended
 direction in [03-implementation-roadmap.md](orchestrator-backend/03-implementation-roadmap.md).
 
-### Per-pillar next steps (the ◐ items in [PILLARS.md](PILLARS.md))
+### Per-pillar next steps (the ◐ items in [PILLARS.md](../PILLARS.md))
 
 - **Pillar 1 — token/latency metrics dashboard.** Context-prep latency,
   time-to-first-token, and original-vs-optimized token counts are already defined as
   the versioned `TokenEfficiencyReport` contract
-  ([contracts.py](../backend/agentflow/contracts.py)) but are **not yet surfaced as a
+  ([contracts.py](../../backend/agentflow/contracts.py)) but are **not yet surfaced as a
   dashboard**. Proposal: build a UI surface that reads the report and shows realized
   Headroom savings (unmeasured values stay `null`, never fabricated).
-- **Pillar 4 — auto-scroll consolidation.** [useAutoScroll.ts](../frontend/src/hooks/useAutoScroll.ts)
+- **Pillar 4 — auto-scroll consolidation.** [useAutoScroll.ts](../../frontend/src/hooks/useAutoScroll.ts)
   exists with a pure tested core but is **not yet adopted at all six legacy call
   sites**, and reduced-motion is honored in streaming text but not audited on every
   surface. Proposal: migrate the remaining call sites to the shared hook and audit
@@ -95,18 +95,18 @@ direction in [03-implementation-roadmap.md](orchestrator-backend/03-implementati
 - **Pillar 3 — CLI normalization beyond ANSI.** Classification of compiler/test/lint
   output into a single Command surface is partial. Proposal: extend normalization so
   these collapse into the existing Command card taxonomy
-  ([displayModel.ts](../frontend/src/lib/displayModel.ts)).
+  ([displayModel.ts](../../frontend/src/lib/displayModel.ts)).
 
 ### Other partial/mocked features
 
 - **Frontend runtime response validation (P2-14).** The frontend trusts backend
   responses with no runtime schema validation (a §15 remaining risk). Proposal
   (recommended next action #3): introduce zod validation at the
-  [api.ts](../frontend/src/api.ts) boundary, starting with the `StreamEvent` path,
+  [api.ts](../../frontend/src/api.ts) boundary, starting with the `StreamEvent` path,
   plus per-request stale-guarding (P2-15).
 - **Live quota for Antigravity.** `live_usage` returns real data only for Codex and
   Claude; Antigravity exposes no headless usage call, so it relies on a manual limit
-  ([FEATURE_STATUS.md](FEATURE_STATUS.md) "Live quota from CLIs"). Proposal: adopt an
+  ([FEATURE_STATUS.md](../FEATURE_STATUS.md) "Live quota from CLIs"). Proposal: adopt an
   exact provider usage API for Antigravity if/when one exists, replacing the manual
   health toggle (also a `NEXT_STEPS.md` Phase 3 item).
 - **Final task report + export (backend Phase 8).** The implementation roadmap's
@@ -132,7 +132,7 @@ notes. Proposals.
 - **Decompose oversized components (P2-18).** Extract hooks from large components
   (ChatPanel / TasksPage) to keep them maintainable.
 - **Preview-iframe sandbox (P2-16).** Tighten the preview iframe sandbox
-  ([PreviewPage.tsx](../frontend/src/pages/PreviewPage.tsx)); grouped with the
+  ([PreviewPage.tsx](../../frontend/src/pages/PreviewPage.tsx)); grouped with the
   frontend P2-14/15 items in the audit.
 - **Reconcile project naming + consolidate launcher scripts (P2-25/27).**
   Recommended next action #6: the product is referred to as both "CLI Controller
@@ -147,7 +147,7 @@ notes. Proposals.
 
 Explicitly speculative directions. These come from the later phases of
 [03-implementation-roadmap.md](orchestrator-backend/03-implementation-roadmap.md)
-and the Phase 2/3 lists in [NEXT_STEPS.md](../NEXT_STEPS.md). Proposals only; none is
+and the Phase 2/3 lists in [NEXT_STEPS.md](NEXT_STEPS.md). Proposals only; none is
 committed beyond being named as a direction.
 
 - **Provider adapter layer (backend Phase 3).** Move executable detection, model
@@ -187,12 +187,12 @@ committed beyond being named as a direction.
 
 - [audit/FINAL_REPORT.md](audit/FINAL_REPORT.md) — source for §1 hardening items
   (recommended next actions, findings not fixed, remaining risks).
-- [FEATURE_STATUS.md](FEATURE_STATUS.md) — per-feature Partial/Mocked/Planned status.
-- [PILLARS.md](PILLARS.md) — the per-pillar ◐ acceptance criteria.
+- [FEATURE_STATUS.md](../FEATURE_STATUS.md) — per-feature Partial/Mocked/Planned status.
+- [PILLARS.md](../PILLARS.md) — the per-pillar ◐ acceptance criteria.
 - [orchestrator-backend/03-implementation-roadmap.md](orchestrator-backend/03-implementation-roadmap.md)
   — the committed phased backend plan.
-- [NEXT_STEPS.md](../NEXT_STEPS.md) — product phase lists (Phase 1/2/3).
-- [SECURITY.md](SECURITY.md) — accepted residual risks for the loopback single-user
+- [NEXT_STEPS.md](NEXT_STEPS.md) — product phase lists (Phase 1/2/3).
+- [SECURITY.md](../SECURITY.md) — accepted residual risks for the loopback single-user
   model.
 </content>
 </invoke>

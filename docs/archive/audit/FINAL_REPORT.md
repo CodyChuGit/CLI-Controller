@@ -21,7 +21,7 @@ isolated from behavior changes.
 Local-first FastAPI backend (`backend/agentflow`) + React 18/Vite 5 frontend
 (`frontend/src`) orchestrating CLI agents as subprocesses, PTY terminals over
 WebSockets, git workspace management, and SSE/polling output streaming. Binds
-`127.0.0.1:8787`. Full map in [ARCHITECTURE.md](../ARCHITECTURE.md). The structure
+`127.0.0.1:8787`. Full map in [ARCHITECTURE.md](../../ARCHITECTURE.md). The structure
 was already coherent (thin routes → services → infrastructure); no architectural
 rewrite was warranted or performed.
 
@@ -96,8 +96,8 @@ active defect, or low-value cleanups. Recommended next, not done now:
   `:5173` corrected to `:5180` (P1-09, P2-10, P3-39).
 - Chat provider validated against the allow-list before launch (P2-11).
 - Git `file-diff` can no longer surface `.env` contents (P2-22).
-- Threat model, controls, and residual risks documented in [SECURITY.md](../SECURITY.md);
-  decision recorded in [ADR 0001](../adr/0001-auto-run-policy-allowlist.md).
+- Threat model, controls, and residual risks documented in [SECURITY.md](../../SECURITY.md);
+  decision recorded in [ADR 0001](../../adr/0001-auto-run-policy-allowlist.md).
 
 ## 8. Reliability improvements
 

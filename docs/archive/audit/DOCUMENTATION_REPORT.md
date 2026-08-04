@@ -8,7 +8,7 @@ Final report for the documentation + production-hardening pass on
 ## Executive summary
 
 The repository now has a complete, code-derived documentation package and an
-explicit statement of its five product pillars ([PILLARS.md](../PILLARS.md)) that
+explicit statement of its five product pillars ([PILLARS.md](../../PILLARS.md)) that
 the test suites encode as success metrics. Documentation was written by inspecting
 the actual code, configuration, scripts, and tests; feature status is classified
 honestly; every repo-relative link was verified to resolve. Overall documentation
@@ -22,31 +22,31 @@ terminals over WebSockets, manages a git workspace, and streams agent output liv
 via SSE + polling. FastAPI backend (`backend/agentflow`, `127.0.0.1:8787`) + React
 18/Vite 5 frontend (`frontend/src`, dev `:5180`). State is plaintext JSON ledgers
 under `~/.agentflow` and `<workspace>/.agentflow` — no database. See
-[ARCHITECTURE.md](../ARCHITECTURE.md) and [PILLARS.md](../PILLARS.md).
+[ARCHITECTURE.md](../../ARCHITECTURE.md) and [PILLARS.md](../../PILLARS.md).
 
 ## Files created
 
 | File | Purpose |
 |------|---------|
-| [docs/INDEX.md](../INDEX.md) | Audience-organized documentation map. |
-| [docs/PILLARS.md](../PILLARS.md) | The five product pillars + interaction model (success metrics). |
-| [docs/PRODUCT_OVERVIEW.md](../PRODUCT_OVERVIEW.md) | What the product is, for whom, main workflows. |
-| [docs/FEATURE_STATUS.md](../FEATURE_STATUS.md) | Honest feature matrix with evidence. |
-| [docs/GETTING_STARTED.md](../GETTING_STARTED.md) | Clone → install → run. |
-| [docs/DEVELOPMENT.md](../DEVELOPMENT.md) | Workflow, commands, maintenance matrix, AI-agent handoff. |
-| [docs/REPOSITORY_STRUCTURE.md](../REPOSITORY_STRUCTURE.md) | Curated tree + placement guidance. |
-| [docs/FRONTEND.md](../FRONTEND.md) | React/Vite app guide. |
-| [docs/BACKEND.md](../BACKEND.md) | FastAPI backend guide. |
-| [docs/API.md](../API.md) | HTTP/SSE/WebSocket endpoint inventory. |
-| [docs/DATA_MODEL.md](../DATA_MODEL.md) | JSON-ledger persistence model. |
-| [docs/CONFIGURATION.md](../CONFIGURATION.md) | Env vars + file-based config. |
-| [docs/TESTING.md](../TESTING.md) | Test strategy + commands. |
-| [docs/TROUBLESHOOTING.md](../TROUBLESHOOTING.md) | Symptom/cause/fix. |
+| [docs/INDEX.md](../../INDEX.md) | Audience-organized documentation map. |
+| [docs/PILLARS.md](../../PILLARS.md) | The five product pillars + interaction model (success metrics). |
+| [docs/PRODUCT_OVERVIEW.md](../../PRODUCT_OVERVIEW.md) | What the product is, for whom, main workflows. |
+| [docs/FEATURE_STATUS.md](../../FEATURE_STATUS.md) | Honest feature matrix with evidence. |
+| [docs/GETTING_STARTED.md](../../GETTING_STARTED.md) | Clone → install → run. |
+| [docs/DEVELOPMENT.md](../../DEVELOPMENT.md) | Workflow, commands, maintenance matrix, AI-agent handoff. |
+| [docs/REPOSITORY_STRUCTURE.md](../../REPOSITORY_STRUCTURE.md) | Curated tree + placement guidance. |
+| [docs/FRONTEND.md](../../FRONTEND.md) | React/Vite app guide. |
+| [docs/BACKEND.md](../../BACKEND.md) | FastAPI backend guide. |
+| [docs/API.md](../../API.md) | HTTP/SSE/WebSocket endpoint inventory. |
+| [docs/DATA_MODEL.md](../../DATA_MODEL.md) | JSON-ledger persistence model. |
+| [docs/CONFIGURATION.md](../../CONFIGURATION.md) | Env vars + file-based config. |
+| [docs/TESTING.md](../../TESTING.md) | Test strategy + commands. |
+| [docs/TROUBLESHOOTING.md](../../TROUBLESHOOTING.md) | Symptom/cause/fix. |
 | [docs/LIMITATIONS.md](../LIMITATIONS.md) | Material limitations by area. |
 | [docs/ROADMAP.md](../ROADMAP.md) | Proposed next work (evidence-derived). |
-| [docs/GLOSSARY.md](../GLOSSARY.md) | Project-specific terms. |
-| [docs/AI_AGENT_GUIDE.md](../AI_AGENT_GUIDE.md) | Deterministic handoff for AI agents. |
-| [CONTRIBUTING.md](../../CONTRIBUTING.md), [CHANGELOG.md](../../CHANGELOG.md) | Contribution guide + changelog. |
+| [docs/GLOSSARY.md](../../GLOSSARY.md) | Project-specific terms. |
+| [docs/AI_AGENT_GUIDE.md](../../AI_AGENT_GUIDE.md) | Deterministic handoff for AI agents. |
+| [CONTRIBUTING.md](../../../CONTRIBUTING.md), [CHANGELOG.md](../../../CHANGELOG.md) | Contribution guide + changelog. |
 | [docs/audit/DOCUMENTATION_DISCOVERY.md](DOCUMENTATION_DISCOVERY.md) | Discovery inventory. |
 
 (ARCHITECTURE/OPERATIONS/SECURITY/ENGINEERING_STANDARDS, the audit reports, and
@@ -54,12 +54,12 @@ ADR 0001 were created in the earlier audit pass and are linked, not duplicated.)
 
 ## Files updated
 
-- [README.md](../../README.md) — routes into the docs index; adds the Headroom note.
-- [docs/ARCHITECTURE.md](../ARCHITECTURE.md) — corrected the CORS origin (`:5173`→`:5180`)
+- [README.md](../../../README.md) — routes into the docs index; adds the Headroom note.
+- [docs/ARCHITECTURE.md](../../ARCHITECTURE.md) — corrected the CORS origin (`:5173`→`:5180`)
   and the shared `origins.py`/CSRF guard; fixed a sibling link.
-- [docs/FRONTEND.md](../FRONTEND.md) — linked the now-present `LIMITATIONS.md` and
+- [docs/FRONTEND.md](../../FRONTEND.md) — linked the now-present `LIMITATIONS.md` and
   the repo-root `DESIGN.md`.
-- [docs/CONFIGURATION.md](../CONFIGURATION.md) — rebased repo-root-relative links to
+- [docs/CONFIGURATION.md](../../CONFIGURATION.md) — rebased repo-root-relative links to
   `docs/`-relative.
 
 ## Existing inaccuracies corrected
@@ -79,7 +79,7 @@ streaming, PTY terminals, preview dev-server, usage/budget, Headroom token savin
 (opt-in), deterministic contracts. Partial: full CLI-output normalization, a11y
 keyboard/focus patterns, auto-scroll consolidation, native structured controller
 output. Experimental/optional: `omlx`/`ollama` local providers, voice I/O (design
-note only). See [FEATURE_STATUS.md](../FEATURE_STATUS.md).
+note only). See [FEATURE_STATUS.md](../../FEATURE_STATUS.md).
 
 ## Commands verified
 
@@ -114,14 +114,14 @@ earlier audit pass.
 
 ## Remaining documentation debt
 
-- No generated OpenAPI snapshot is committed; [API.md](../API.md) points to the live
+- No generated OpenAPI snapshot is committed; [API.md](../../API.md) points to the live
   `/docs`. A committed `openapi.json` + drift check is a possible follow-up.
 - No Mermaid sequence diagrams beyond the textual flows (kept textual to avoid
   diagram drift).
 
 ## Maintenance rules
 
-See the **Documentation maintenance matrix** in [DEVELOPMENT.md](../DEVELOPMENT.md):
+See the **Documentation maintenance matrix** in [DEVELOPMENT.md](../../DEVELOPMENT.md):
 each change type lists the docs to update (e.g. new API route → API.md; new env var
 → CONFIGURATION.md + .env.example; new feature → FEATURE_STATUS.md + PRODUCT_OVERVIEW;
 pillar-affecting change → PILLARS.md + the pillar tests).
@@ -132,4 +132,4 @@ pillar-affecting change → PILLARS.md + the pillar tests).
 modify the repository from the documentation without tribal knowledge. It is not yet
 "production operations ready" in the multi-tenant/deployment sense — by design it is a
 local single-user tool with no deployment pipeline (documented in
-[OPERATIONS.md](../OPERATIONS.md) and [LIMITATIONS.md](../LIMITATIONS.md)).
+[OPERATIONS.md](../../OPERATIONS.md) and [LIMITATIONS.md](../LIMITATIONS.md)).

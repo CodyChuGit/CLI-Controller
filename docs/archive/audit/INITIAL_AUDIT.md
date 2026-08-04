@@ -18,8 +18,8 @@ React UI via SSE + polling. ~6,500 LOC Python (FastAPI + uvicorn + pydantic) and
 binds `127.0.0.1:8787`. macOS-oriented (uses `open`, `open -a Terminal`, `.app`
 bundles).
 
-See [ARCHITECTURE.md](../ARCHITECTURE.md) for the module map and data flow, and
-[OPERATIONS.md](../OPERATIONS.md) for how it runs.
+See [ARCHITECTURE.md](../../ARCHITECTURE.md) for the module map and data flow, and
+[OPERATIONS.md](../../OPERATIONS.md) for how it runs.
 
 ## How the system currently runs
 
