@@ -469,5 +469,121 @@ messages = [
 (AF / ".gitignore").write_text("*\n")
 (AF / "usage.json").write_text(json.dumps({"localSteps": 26, "expensiveCallsAvoided": 9}, indent=2) + "\n")
 
+# --- a real dependency web, so the Memory galaxy has something to show -------
+# Deterministic (no RNG): the same seed always produces the same graph. Layered
+# like the app it pretends to be — pages pull components, components pull hooks
+# and libs, routes pull services, services pull models — with a few hub modules
+# (api, types, db) so the galaxy clusters instead of reading as confetti.
+
+AREAS = ["revenue", "signups", "retention", "latency", "errors", "billing", "traffic", "alerts"]
+WIDGETS = ["Summary", "Trend", "Breakdown", "Funnel", "Cohort", "Heatmap", "Leaderboard", "Delta",
+           "Forecast", "Anomaly", "Compare", "Digest", "Pulse", "Rollup"]
+LIBS = ["api", "types", "format", "colors", "scale", "query", "cache", "auth", "dates", "math",
+        "csv", "clipboard", "keyboard", "storage", "flags", "events", "urls", "text", "sort", "group",
+        "debounce", "clamp", "series", "geo"]
+CHARTS = ["Line", "Area", "Bar", "Stack", "Scatter", "Donut", "Spark", "Gauge", "Candle", "Ribbon",
+          "Slope", "Bump", "Stream", "Sunburst", "Tree", "Matrix", "Radar", "Violin", "Hexbin", "Sankey",
+          "Chord", "Arc", "Grid", "Dot"]
+MODELS = ["Account", "Workspace", "Member", "Plan", "Invoice", "Payment", "Event", "Metric",
+          "Dashboard", "Widget", "Alert", "Report", "Session", "Token", "Webhook", "AuditLog"]
+SERVICES = ["accounts", "workspaces", "members", "plans", "invoices", "payments", "events", "metrics",
+            "dashboards", "widgets", "alerts", "reports", "sessions", "tokens", "webhooks", "audit",
+            "ingest", "rollup", "digest", "export", "search", "quota", "email", "sync"]
+ROUTES = SERVICES + ["health", "login", "logout", "me", "usage", "settings", "invite", "upgrade"]
+
+
+def w(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text)
+
+
+for i, lib in enumerate(LIBS):
+    dep = LIBS[(i + 1) % len(LIBS)] if lib not in ("api", "types") else "types"
+    imp = "" if lib == "types" else f'import {{ {dep}Of }} from "./{dep}";\n\n'
+    body = "".join(
+        f"export function {lib}{fn}(value: unknown) {{\n"
+        + ("  return value;\n" if lib == "types" else f"  return {dep}Of(value);\n")
+        + "}\n\n"
+        for fn in ("Of", "For", "From", "Into")
+    )
+    w(DEMO / "src" / "lib" / f"{lib}.ts", imp + body)
+
+for i, area in enumerate(AREAS):
+    for suffix in ("", "Range", "Filter", "Live", "Page")[: 3 + (i % 3)]:
+        hook = f"use{area.capitalize()}{suffix}"
+        lib = LIBS[(i + len(suffix)) % len(LIBS)]
+        w(
+            DEMO / "src" / "hooks" / f"{hook}.ts",
+            f'import {{ apiOf }} from "../lib/api";\nimport {{ {lib}Of }} from "../lib/{lib}";\n\n'
+            f"export function {hook}(key: string) {{\n  return {lib}Of(apiOf(key));\n}}\n\n"
+            f"export function {hook}Key(key: string) {{\n  return apiOf(key);\n}}\n",
+        )
+
+for i, area in enumerate(AREAS):
+    for j, widget in enumerate(WIDGETS):
+        name = f"{area.capitalize()}{widget}"
+        hook = f"use{area.capitalize()}" + ("", "Range", "Filter")[j % 3]
+        chart = CHARTS[(i * len(WIDGETS) + j) % len(CHARTS)]
+        lib = LIBS[(i + j) % len(LIBS)]
+        w(
+            DEMO / "src" / "components" / f"{name}.tsx",
+            f'import {{ {hook} }} from "../hooks/{hook}";\n'
+            f'import {{ {chart}Chart }} from "../charts/{chart}Chart";\n'
+            f'import {{ {lib}Of }} from "../lib/{lib}";\n\n'
+            f'export function {name}() {{\n  const data = {hook}("{area}.{widget.lower()}");\n'
+            f"  return {chart}Chart({lib}Of(data));\n}}\n\n"
+            f"export function {name}Title() {{\n  return \"{area} {widget.lower()}\";\n}}\n",
+        )
+
+for chart in CHARTS:
+    w(
+        DEMO / "src" / "charts" / f"{chart}Chart.tsx",
+        'import { scaleOf } from "../lib/scale";\nimport { colorsOf } from "../lib/colors";\n\n'
+        f"export function {chart}Chart(data: unknown) {{\n  return [scaleOf(data), colorsOf(data)];\n}}\n\n"
+        f"export function {chart}Axis(data: unknown) {{\n  return scaleOf(data);\n}}\n",
+    )
+
+for i, area in enumerate(AREAS):
+    comps = [f"{area.capitalize()}{wd}" for wd in WIDGETS[: 8 + (i % 4)]]
+    imports = "".join(f'import {{ {c} }} from "../components/{c}";\n' for c in comps)
+    calls = ", ".join(f"{c}()" for c in comps)
+    w(
+        DEMO / "src" / "pages" / f"{area.capitalize()}Page.tsx",
+        imports + f"\nexport function {area.capitalize()}Page() {{\n  return [{calls}];\n}}\n",
+    )
+
+w(DEMO / "server" / "db.ts", "export function dbQuery(sql: string) {\n  return sql;\n}\n")
+for model in MODELS:
+    w(
+        DEMO / "server" / "models" / f"{model}.ts",
+        'import { dbQuery } from "../db";\n\n'
+        f"export class {model} {{\n"
+        f'  static find(id: string) {{\n    return dbQuery("select * from {model.lower()} where id = " + id);\n  }}\n'
+        f'  static list() {{\n    return dbQuery("select * from {model.lower()}");\n  }}\n'
+        f"}}\n",
+    )
+
+for i, svc in enumerate(SERVICES):
+    model = MODELS[i % len(MODELS)]
+    other = MODELS[(i + 3) % len(MODELS)]
+    w(
+        DEMO / "server" / "services" / f"{svc}.ts",
+        f'import {{ {model} }} from "../models/{model}";\nimport {{ {other} }} from "../models/{other}";\n\n'
+        f"export function {svc}List() {{\n  return {model}.list();\n}}\n\n"
+        f"export function {svc}Get(id: string) {{\n  return {model}.find(id);\n}}\n\n"
+        f"export function {svc}Join(id: string) {{\n  return [{model}.find(id), {other}.find(id)];\n}}\n",
+    )
+
+for i, route in enumerate(ROUTES):
+    svc = SERVICES[i % len(SERVICES)]
+    w(
+        DEMO / "server" / "routes" / f"{route}.ts",
+        f'import {{ {svc}List, {svc}Get }} from "../services/{svc}";\n\n'
+        f"export function get{route.capitalize()}() {{\n  return {svc}List();\n}}\n\n"
+        f"export function get{route.capitalize()}ById(id: string) {{\n  return {svc}Get(id);\n}}\n",
+    )
+
+generated = sum(1 for _ in DEMO.rglob("*.ts")) + sum(1 for _ in DEMO.rglob("*.tsx"))
+
 print("demo workspace:", DEMO)
-print("task:", TASK_ID, "| messages:", len(messages))
+print("task:", TASK_ID, "| messages:", len(messages), "| source files:", generated)
