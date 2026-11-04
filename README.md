@@ -14,6 +14,10 @@ them together on your machine — one asks for a spec, another writes the code, 
 third QAs it — and shows the whole thing as a task you can read, retry, and
 commit. No API keys, no cloud, no eight terminal tabs.
 
+<p align="center">
+  <img src="docs/assets/tour.gif" alt="Tour of CLI Controller IDE: Tasks, Usage, Agents, Explorer, Sources, Settings, and the Memory galaxy" width="900">
+</p>
+
 ---
 
 ## Ask once. It plans the work and cues the agents.
@@ -66,6 +70,49 @@ On top of that, two token-saving layers run by default: **Headroom** compresses
 bulky machine context inside prompts before they're sent, and **Ponytail** keeps
 agent output to the smallest thing that works.
 
+<p align="center">
+  <img src="docs/assets/token-savings.png" alt="Settings card with Headroom compression enabled and the Ponytail discipline level set to full" width="760">
+</p>
+
+## See your codebase as a galaxy.
+
+<p align="center">
+  <img src="docs/assets/memory-galaxy.gif" alt="Memory tab: a 3D knowledge graph of the sample project, zoomed out and orbiting" width="640">
+</p>
+
+The **Memory** tab indexes the workspace with `codebase-memory-mcp` and renders
+every file, symbol, and call as one 3D graph — here, 1,191 nodes and 2,993 edges
+from the sample project. Drag to orbit, scroll to zoom, and hover any node to
+see which file or symbol it is.
+
+## Everything else, one click away.
+
+<p align="center">
+  <img src="docs/assets/explorer.png" alt="Explorer with the Codex spec for the stripe-checkout task open in the editor" width="900">
+</p>
+
+**Explorer** is a real file tree and editor. Every handoff between agents is a
+plain Markdown file in `.agentflow/tasks/<task>/` — the spec, the plan, Claude's
+summary, QA results, the final review — so you can read, edit, or commit exactly
+what each agent was told.
+
+<p align="center">
+  <img src="docs/assets/agents.png" alt="Agents tab listing detected CLIs with versions, model pickers, and usage-health lights" width="900">
+</p>
+
+**Agents** finds every CLI on your machine with its version, lets you pick the
+model per provider, and gives each one a green / yellow / red usage-health light
+— set one to red and the router treats that provider as exhausted. Missing tools install in one click; logins go through each
+CLI's own flow.
+
+<p align="center">
+  <img src="docs/assets/sources.png" alt="Sources tab reading zod's real source after fetching it with opensrc" width="900">
+</p>
+
+**Sources** fetches the real source of any dependency (npm, PyPI, crates, or a
+repo) with `opensrc` and keeps it cached — for you to read and for the agents to
+cite instead of guessing at an API.
+
 <sub>Screenshots show the real UI against a sample project. Provider health and
 quota are live readings from the CLIs.</sub>
 
@@ -82,7 +129,7 @@ quota are live readings from the CLIs.</sub>
 | Usage | Budget/traffic-control mode, provider health, live quota where available. |
 | Preview | Start and monitor a localhost preview/dev server for the selected workspace. |
 | Logs | Redacted global logs and active run tails. |
-| Memory | 3D codebase knowledge-graph explorer (via `codebase-memory-mcp`): index the workspace, filter/search nodes, hotspots, and a node drawer with source + callers/callees. |
+| Memory | 3D codebase knowledge-graph explorer (via `codebase-memory-mcp`): index the workspace, then orbit, zoom, and hover the galaxy of files, symbols, and calls. |
 | Sources | Fetch and browse any open-source package's real source (via `opensrc`) — for you and the agents. |
 | Settings | Routing defaults, command templates, Headroom compression, and Ponytail prompt discipline. |
 
